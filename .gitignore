@@ -1,0 +1,78 @@
+# Ignore files that should not be committed.
+# Do not commit data, passwords, secret information or large files.
+
+# Don't commit the assets/ folder except for the README.md file
+# Store them in a shared folder and sync here.
+assets/**
+!assets/README*
+
+# Ignore npm and bower modules. These should be created by yarn/npm and bower.
+node_modules/
+bower_components/
+
+# Filenames should NOT have spaces
+* *
+
+# Ignore byte-compiled / optimised / DLL files
+__pycache__/
+*.py[cod]
+
+# Do not commit data files.
+*.csv
+*.db
+*.sqlite3
+*.sqlite3-journal
+*.dat
+*.mdb
+
+# Ignore compressed files
+*.7z
+*.zip
+
+# Avoid documents
+*.doc*
+*.pdf
+*.ppt*
+*.xls*
+
+# Avoid media files
+*.avi
+*.mp*
+*.wmv
+
+# Unit test
+.pytest_cache/
+
+# Ignore Gramex 0.x artefacts and log files
+.cache/
+.gramex-compiled/
+*.xhtml
+*.log
+
+# Ignore backup files
+~$*
+*~
+*.bak*
+
+# Sublime-text workspaces, etc
+*.sublime-*
+.vscode/
+
+# IPython Notebook checkpoints
+.ipynb_checkpoints
+
+# Windows / Mac OS artefacts
+*.lnk
+Desktop.ini
+$RECYCLE.BIN/
+*[Tt]humbs.db
+*.DS_Store
+
+# bash.exe.stackdump on Cygwin
+*.stackdump
+
+# R history files
+.RHistory
+
+# For Linux FUSE file system
+.fuse_hidden*
