@@ -56,58 +56,61 @@
     {% import os %}
     {% from gramex.config import variables %}
     {% if os.path.exists(os.path.join(variables['GRAMEXDATA'], 'apps/mlhandler/data.csv')) %}
-      <div class="container">
+    <div class="container">
 
-        <div class="row">
-          <div class="col">
-            <div class="formhandler" data-src="preview"></div>
-          </div>
+      <div class="row">
+        <div class="col">
+          <div class="formhandler" data-src="preview"></div>
         </div>
-
-        <div class="row">
-          <div class="col">
-            Select Target Column:
-          </div>
-          <div class="col">
-            <div id="coldd"></div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            Select Test Size
-          </div>
-          <div class="col">
-            <input type="range" class="custom-range" name="testSize" value="33">
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <p>Select Algorithm:</p>
-          </div>
-          <div class="col">
-            <div id="modelist"></div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <p>Model Name:</p>
-          </div>
-          <div class="col">
-            <input id="modelname">
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <div class="btn btn-primary" id="train">Train</div>
-          </div>
-        </div>
-
       </div>
+
+      <div class="row">
+        <div class="col">
+          Select Target Column:
+        </div>
+        <div class="col">
+          <div id="coldd"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          Select Test Size
+        </div>
+        <div class="col">
+          <input type="range" class="custom-range" name="testSize" value="33">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p>Select Algorithm:</p>
+        </div>
+        <div class="col">
+          <div id="modelist"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p>Model Name:</p>
+        </div>
+        <div class="col">
+          <input id="modelname">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="btn btn-primary" id="train">Train</div>
+        </div>
+      </div>
+
+    </div>
     {% end %}
+    <div class="divider"></div>
+    <div id="report"></div>
+
   </div>
 
   <script src="ui/jquery/dist/jquery.min.js"></script>
@@ -115,6 +118,8 @@
   <script src="ui/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
   <script src="ui/lodash/lodash.min.js"></script>
   <script src="ui/g1/dist/g1.min.js"></script>
+  <script src="ui/vega/build/vega.min.js"></script>
+  <script src="ui/vega-lite/build/vega-lite.min.js"></script>
   <script>
     var modelName = null
     var trainCols = []
@@ -171,17 +176,22 @@
     }
 
 
+    var fitresp = null
     function fit(name) {
       $.ajax({
-        url: `model/${name}/`,
-        type: 'put',
+        url: `fit/${name}/`,
+        type: 'post',
         headers: {'Model-Retrain': true},
         data: JSON.stringify({
           'model_class': modelName,
           'url': '$GRAMEXDATA/apps/mlhandler/data.csv',
-          'output': targetCol
+          'output': targetCol,
+          'testSize': testSize,
         }),
-        success: console.log
+        success: (e) => {
+          fitresp = e
+          $('#report').html(e)
+        }
       })
     }
 

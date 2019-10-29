@@ -1,0 +1,24 @@
+{% if score < 0.5 %}
+  {% set tcls = 'text-danger' %}
+{% elif score < 0.7 %}
+  {% set tcls = 'text-warning' %}
+{% elif score >= 0.7 %}
+  {% set tcls = 'text-success' %}
+{% end %}
+
+<div class="h1 text-center">
+  Your model scored <span class="{{ tcls }}">{{ '{:.2%}'.format(score) }}</span>
+</div>
+
+<div id="modelchart" class="align-center"></div>
+
+<script>
+  {% autoescape None %}
+  {% from tornado.escape import json_decode %}
+  var spec = {{ spec }}
+  var view = new vega.View(vega.parse(vl.compile(spec).spec))
+      .renderer('svg')
+      .initialize('#modelchart')
+      .hover()
+      .run()
+</script>

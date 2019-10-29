@@ -19,21 +19,19 @@ url:
       xsrf_cookies: false
       redirect: /$YAMLURL/
   modelhandler:
-    pattern: /$YAMLURL/model/(.*?)/(.*?)
-    handler: ModelHandler
+    pattern: /$YAMLURL/fit/(.*?)/(.*?)
+    handler: FunctionHandler
     kwargs:
-      path: $GRAMEXDATA/apps/mlhandler/
+      function: modelhandler_demo.fit
+      xsrf_cookies: false
+      headers:
+        Content-Type: text/plain
   formhandler:
     pattern: /$YAMLURL/preview
     handler: FormHandler
     kwargs:
       url: $GRAMEXDATA/apps/mlhandler/data.csv
       xsrf_cookies: false
-  splitter:
-    pattern: /$YAMLURL/split
-    handler: FunctionHandler
-    kwargs:
-      function: modelhandler_demo.split
 
 # Gramex init configurations for app: modelhandler-demo
 # ----------------------------------------------------------------------------
