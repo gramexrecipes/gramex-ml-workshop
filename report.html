@@ -6,19 +6,34 @@
   {% set tcls = 'text-success' %}
 {% end %}
 
-<div class="h1 text-center">
-  Your model scored <span class="{{ tcls }}">{{ '{:.2%}'.format(score) }}</span>
+<div class="container-fluid">
+  <div class="row">
+    <div class="h1 text-center">
+      Your model scored <span class="{{ tcls }}">{{ '{:.2%}'.format(score) }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div id="modelchart"></div>
+  </div>
 </div>
 
-<div id="modelchart" class="align-center"></div>
-
+{% if spec %}
 <script>
-  {% autoescape None %}
-  {% from tornado.escape import json_decode %}
-  var spec = {{ spec }}
-  var view = new vega.View(vega.parse(vl.compile(spec).spec))
-      .renderer('svg')
-      .initialize('#modelchart')
-      .hover()
-      .run()
+  {% import json %}
+  {% try %}
+    {% set specs = json.loads(spec) %}
+    {% autoescape None %}
+    {% from tornado.escape import json_decode %}
+    var spec = {{ spec }}
+    var view = new vega.View(vega.parse(vl.compile(spec).spec))
+        .renderer('svg')
+        .initialize('#modelchart')
+        .hover()
+        .run()
+  {% except json.JSONDecodeError %}
+    var src = 'data:image/png;base64,{{ spec }}'
+    $('#modelchart').prepend(`<img src="${src}"/>`)
+  {% end %}
+
 </script>
+{% end %}
