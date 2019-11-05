@@ -1,17 +1,19 @@
 # See http://doc.gitlab.com/ce/ci/yaml/README.html
 
-validate:
-  script:
-    - validate v1
-    - pytest -v
+# validate:
+#   script:
+#     - validate v1
+#     - pytest -v
 
-# Deploy application to a server
-# deploy:
-#   stage: deploy
-#   script: deploy
-#   only: [master]                          # Only deploy on master branch commit
-#   variables:
-#     SERVER: ubuntu@uat.gramener.com       # Deploy to uat.gramener.com/app-name/
-#     URL: app-name                         # Change this to your app-name
-#     SETUP: npm install && bower install   # You can use any setup script here
-#     VERSION: v1                           # v0, v1 or static
+      # Deploy application to a server
+deploy:
+  stage: deploy
+  script: deploy
+  only: [master]                          # Only deploy on master branch commit
+  tags: [py3]
+  variables:
+    SERVER: ubuntu@uat.gramener.com       # Deploy to uat.gramener.com/app-name/
+    URL: modelhandler-demo                         # Change this to your app-name
+    SETUP: sh setup.sh   # You can use any setup script here
+    VERSION: py3v1                           # v0, v1 or static
+    PORT: 8040
