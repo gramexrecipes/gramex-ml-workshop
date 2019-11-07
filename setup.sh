@@ -1,1 +1,1 @@
-pip install scipy sklearn matplotlib
+pip install scipy sklearn==0.21.3 matplotlib

@@ -93,15 +93,6 @@
 
       <div class="row">
         <div class="col">
-          <p>Model Name:</p>
-        </div>
-        <div class="col">
-          <input id="modelname">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
           <div class="btn btn-primary" id="train">Train</div>
         </div>
       </div>
@@ -157,6 +148,7 @@
 
     $('#modelist').on('change', (e) => {
       modelName = g1.url.parse(location.href).searchKey.model
+      $('#modelchart').html('')
     })
     .on('load', (e) => {modelName = 'sklearn.linear_model.LogisticRegression'})
     .dropdown(modelist)
@@ -177,9 +169,9 @@
 
 
     var fitresp = null
-    function fit(name) {
+    function fit() {
       $.ajax({
-        url: `fit/${name}/`,
+        url: `fit`,
         type: 'post',
         headers: {'Model-Retrain': true},
         data: JSON.stringify({
@@ -196,13 +188,7 @@
     }
 
     $('#train').on('click', (e) => {
-      let name = $('#modelname').val()
-      if (!name) {
-        alert('Name the model')
-        $('#modelname').focus()
-      } else {
-        fit(name)
-      }
+      fit()
     })
 
   </script>

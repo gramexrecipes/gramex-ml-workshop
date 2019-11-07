@@ -19,19 +19,27 @@ url:
       xsrf_cookies: false
       redirect: /$YAMLURL/
   modelhandler:
-    pattern: /$YAMLURL/fit/(.*?)/(.*?)
+    pattern: /$YAMLURL/fit
     handler: FunctionHandler
     kwargs:
       function: modelhandler_demo.fit
       xsrf_cookies: false
       headers:
         Content-Type: text/plain
+        Cache-Control: no-store
   formhandler:
     pattern: /$YAMLURL/preview
     handler: FormHandler
     kwargs:
       url: $GRAMEXDATA/apps/mlhandler/data.csv
       xsrf_cookies: false
+  chart:
+    pattern: /$YAMLURL/chart.png
+    handler: FileHandler
+    kwargs:
+      path: $YAMLPATH/chart.png
+      headers:
+        Cache-Control: no-store
 
 # Gramex init configurations for app: modelhandler-demo
 # ----------------------------------------------------------------------------

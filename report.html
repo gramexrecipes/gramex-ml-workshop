@@ -30,9 +30,8 @@
         .initialize('#modelchart')
         .hover()
         .run()
-  {% except json.JSONDecodeError %}
-    var src = 'data:image/png;base64,{{ spec }}'
-    $('#modelchart').prepend(`<img src="${src}"/>`)
+  {% except (json.JSONDecodeError, TypeError) %}
+    $('#modelchart').html('<img src="chart.png"/>')
   {% end %}
 
 </script>
