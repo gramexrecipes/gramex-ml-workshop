@@ -1,7 +1,7 @@
 from gramex.config import variables
 import numpy as np
 from gramex import cache
-import os.path as op
+import os
 from pydoc import locate
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -13,7 +13,10 @@ import json
 import matplotlib.pyplot as plt
 from scipy.stats import norm
 
+op = os.path
 DIR = variables['GRAMEXDATA'] + '/apps/mlhandler'
+if not op.isdir(DIR):
+    os.mkdir(DIR)
 
 
 def init_form(handler):
