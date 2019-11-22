@@ -59,6 +59,28 @@ $ pip install git+https://github.com/gramener/gramex@jd-grx-core#egg=gramex
 $ gramex setup ui
 ```
 
+Alternative installation
+-------------------------
+
+Gramex can be installed as a Docker instance.
+
+```bash
+docker pull gramener/gramex     # or docker pull gramener/gramex:1.27.0
+
+# Run Gramex on port 9988
+docker run --name gramex-instance -p 9988:9988 gramener/gramex
+
+# Run bash inside the container
+docker run --name gramex-instance -i -t -p 9988:9988 gramener/gramex /bin/bash
+
+# To re-connect to the instance:
+docker start -i -a gramex-instance
+
+# Other useful commands
+docker container ls           # list instances
+docker rm gramex-instance     # delete instance
+```
+
 Download Workshop Material
 --------------------------
 
