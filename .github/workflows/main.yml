@@ -15,5 +15,6 @@ jobs:
       with:
         host: gramex.gramener.com
         username: ubuntu
+        key: ${{ secrets.GramexDotGramenerDotCom }}
         source: "*"
         target: "/home/ubuntu/apps/"
