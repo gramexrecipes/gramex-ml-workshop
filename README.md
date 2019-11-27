@@ -15,6 +15,9 @@ Prerequisites
 $ conda install pandas matplotlib scikit-learn tzlocal colorama h5py
 ```
 
+3. Git
+Git is required for installing Gramex for this tutorial. You can install Git by dowloading it [here](https://git-scm.com/downloads)
+
 Installing Node / Yarn libraries
 --------------------------------
 
