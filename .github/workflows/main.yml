@@ -12,9 +12,10 @@ jobs:
     - uses: actions/checkout@master
     - name: copy file via ssh password
       uses: appleboy/scp-action@master
+      env:
+        HOST: gramex.gramener.com
+        USERNAME: ubuntu
+        KEY: ${{ secrets.GramexDotGramenerDotCom }}
       with:
-        host: gramex.gramener.com
-        username: ubuntu
-        key: ${{ secrets.GramexDotGramenerDotCom }}
         source: "*"
-        target: "/home/ubuntu/apps/"
+        target: "/home/ubuntu/apps/gramex-ml-workshop/"
