@@ -13,96 +13,59 @@
 <body>
   {% set base = '.' %}
   {% include template-navbar.html %}
-  <div class="container-fluid pt-4">
-
-    <div class="form-inline">
-      <div class="form-row align-items-center">
-        <div class="col-auto">
-          <button type="button" class="btn btn-primary round" data-toggle="modal"
-          data-target=".form-modal">
-            Add Data <i class="fa fa-plus"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-
-  <!-- File Upload Modal -->
-    <div class="modal fade form-modal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Select Data</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form id="nlg-init-form" action="initform"
-            method="POST" enctype="multipart/form-data">
-              <input type="hidden" name="_xsrf" value="{{ handler.xsrf_token }}">
-              <label for="fileupload">Dataset:</label>
-              <input id="fileupload" name="data-file" type="file" class="form-control-file">
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" form="nlg-init-form" class="btn btn-primary">Submit</button>
+  <div class="container-fluid py-4">
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <a href="/total">Click here for Addition of Numbers.</a>
           </div>
         </div>
       </div>
-    </div> <!--GRMFORM HTML END-->
-
-    <div class="divider"></div>
-    {% import os %}
-    {% from gramex.config import variables %}
-    {% if os.path.exists(os.path.join(variables['GRAMEXDATA'], 'apps/mlhandler/data.csv')) %}
-    <div class="container">
-
-      <div class="row">
-        <div class="col">
-          <div class="formhandler" data-src="preview"></div>
+      <div class="card">
+        <div class="card-body">
+          <form action="upload" method="POST" enctype="multipart/form-data">
+            <input name="file" type="file">
+            <button type="buton" id="file_upload_btn">Submit</button>
+            <input type="hidden" name="_xsrf" value="{{ handler.xsrf_token }}">
+            <input type="hidden" name="save" value="data.csv">
+          </form>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col">
-          Select Target Column:
-        </div>
-        <div class="col">
-          <div id="coldd"></div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          Select Test Size
-        </div>
-        <div class="col">
-          <input type="range" class="custom-range" name="testSize" value="33">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <p>Select Algorithm:</p>
-        </div>
-        <div class="col">
-          <div id="modelist"></div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="btn btn-primary" id="train">Train</div>
-        </div>
-      </div>
-
-    </div>
-    {% end %}
-    <div class="divider"></div>
-    <div id="report"></div>
-
+    </div><!-- .card -->
+  </div><!-- .container-fluid -->
+  <div class="divider"></div>
+  <div class="container-fluid py-4">
+    <div class="formhandler" data-src="data"></div>
   </div>
+  <div class="divider"></div>
+  <div class="col-6">
+    <div class="container-fluid py-4 d-none" id="mlSection">
+      <div class="form-group row">
+        <label for="targetCol" class="col-sm-4 col-form-label">Select Target Column:</label>
+        <div class="col-sm-8">
+          <div id="targetCol"></div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="testSize" class="col-sm-4 col-form-label">Select Test Size:</label>
+        <div class="col-8">
+          <input id="testSize" type="range" class="custom-range" name="testSize" value="33">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="algorithm" class="col-sm-4 col-form-label">Select Algorithm:</label>
+        <div class="col-sm-8">
+          <div id="algorithm"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" id="train">Train</button>
+      </div>
+    </div>
+  </div>
+  <div id="report" class="col-6"></div>
+  <div class="divider"></div>
 
   <script src="ui/jquery/dist/jquery.min.js"></script>
   <script src="ui/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -111,87 +74,7 @@
   <script src="ui/g1/dist/g1.min.js"></script>
   <script src="ui/vega/build/vega.min.js"></script>
   <script src="ui/vega-lite/build/vega-lite.min.js"></script>
-  <script>
-    var modelName = null
-    var trainCols = []
-    var testSize = $('.custom-range').val()
-    var targetCol = null
-    const modelist = {
-      data: [
-        {'label': 'Logistic Regression', 'value': 'sklearn.linear_model.LogisticRegression'},
-        {'label': 'Perceptron'         , 'value': 'sklearn.linear_model.Perceptron'},
-        {'label': 'PAC'                , 'value': 'sklearn.linear_model.PassiveAggressiveClassifier'},
-        {'label': 'SVC'                , 'value': 'sklearn.svm.SVC'},
-        {'label': 'Nu-SVC'             , 'value': 'sklearn.svm.NuSCV'},
-        {'label': 'Linear SVC'         , 'value': 'sklearn.svm.LinearSVC'},
-        {'label': 'Nearest Neighbors'  , 'value': 'sklearn.neighbors.KNeighborsClassifier'},
-        {'label': 'Gaussian NB'        , 'value': 'sklearn.naive_bayes.GaussianNB'},
-        {'label': 'Bernoulli NB'       , 'value': 'sklearn.naive_bayes.BernoulliNB'},
-        {'label': 'Multinomial NB'     , 'value': 'sklearn.naive_bayes.MultinomialNB'},
-        {'label': 'Decision Tree'      , 'value': 'sklearn.tree.DecisionTreeClassifier'},
-        {'label': 'Random Forests'     , 'value': 'sklearn.ensemble.RandomForestClassifier'},
-        {'label': 'Neural Networks'    , 'value': 'sklearn.neural_network.MLPClassifier'}
-      ],
-      value_key: 'value',
-      label_key: 'label',
-      target: 'pushState',
-      key: 'model'
-    }
-    const metrics = {
-      data: [
-        {'label': 'Accuracy'        , 'value': 'sklearn.metrics.accuracy_score'},
-        {'label': 'AUC'             , 'value': 'sklearn.metrics.auc'},
-        {'label': 'F1 score'        , 'value': 'sklearn.metrics.f1_score'},
-        {'label': 'Confusion Matrix', 'value': 'sklearn.metrics.confusion_matrix'},
-      ]
-    }
-
-    $('#modelist').on('change', (e) => {
-      modelName = g1.url.parse(location.href).searchKey.model
-      $('#modelchart').html('')
-    })
-    .on('load', (e) => {modelName = 'sklearn.linear_model.LogisticRegression'})
-    .dropdown(modelist)
-
-    $('.formhandler').on('load', (e) => {
-      trainCols = _.filter(e.meta.columns, (c) => {return !c.hide})
-      trainCols = _.map(trainCols, 'name')
-      render_tc_dd(trainCols)
-    }).formhandler({'pageSize': 5})
-
-
-    function render_tc_dd(trainCols) {
-      $('#coldd').on('change', (e) => {
-        targetCol = g1.url.parse(location.href).searchKey.targetCol
-      })
-      .dropdown({data: trainCols, target: 'pushState', key: 'targetCol'})
-    }
-
-
-    var fitresp = null
-    function fit() {
-      $.ajax({
-        url: `fit`,
-        type: 'post',
-        headers: {'Model-Retrain': true},
-        data: JSON.stringify({
-          'model_class': modelName,
-          'url': '$GRAMEXDATA/apps/mlhandler/data.csv',
-          'output': targetCol,
-          'testSize': testSize,
-        }),
-        success: (e) => {
-          fitresp = e
-          $('#report').html(e)
-        }
-      })
-    }
-
-    $('#train').on('click', (e) => {
-      fit()
-    })
-
-  </script>
+  <script src="js/script.js"></script>
   <!-- Commonly used libraries:
   <script src="ui/d3v5/dist/d3.min.js"></script>
   <script src="ui/morphdom/dist/morphdom-umd.min.js"></script>

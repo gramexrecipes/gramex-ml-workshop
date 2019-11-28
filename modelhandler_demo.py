@@ -13,20 +13,18 @@ import json
 import matplotlib.pyplot as plt
 from scipy.stats import norm
 
-op = os.path
-DIR = variables['GRAMEXDATA'] + '/apps/mlhandler'
-if not op.isdir(DIR):
-    os.mkdir(DIR)
+
+def total(*items):
+    """Addition of items numbers."""
+    # return json.dumps(sum(float(item) for item in items))
+    return str(sum(items))
 
 
-def init_form(handler):
-    """Process input from the landing page and write the current session config."""
-    data_file = handler.request.files.get('data-file', [{}])[0]
-    # TODO: Unix filenames may not be valid Windows filenames.
-    outpath = op.join(DIR, "data.csv")
-    with open(outpath, 'wb') as fout:
-        fout.write(data_file['body'])
-    return 'OK'
+def name_age(handler):
+    """URL path arguments."""
+    name = handler.path_args[0]
+    age = handler.path_args[1]
+    return json.dumps({"Name": name, "Age": age})
 
 
 def _make_gnb_chart(clf, dfx):
@@ -82,19 +80,22 @@ def _make_chart(clf, df):
 
 
 def fit(handler):
-    kwargs = json.loads(handler.request.body)
-    url = kwargs['url'].replace('$GRAMEXDATA', variables['GRAMEXDATA'])
+    url = handler.get_argument('url', default='upload_data/data.csv')
     df = cache.open(url)
-    clf = locate(kwargs['model_class'])()
-    test_size = float(kwargs['testSize']) / 100
-    target_col = kwargs['output']
+    clf = locate(handler.get_argument('model_class'))()
+    test_size = float(handler.get_argument('testSize')) / 100
+    target_col = handler.get_argument('output')
+
     dfy = df[target_col]
     dfx = df[[c for c in df if c != target_col]]
     x, y = dfx.values, dfy.values
+
     xtrain, xtest, ytrain, ytest = train_test_split(
             x, y, test_size=test_size, shuffle=True, stratify=y)
+
     clf.fit(xtrain, ytrain)
     score = clf.score(xtest, ytest)
+
     with open('report.html', 'r', encoding='utf8') as fout:
         tmpl = Template(fout.read())
     viz = _make_chart(clf, dfx)

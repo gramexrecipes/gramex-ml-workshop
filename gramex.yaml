@@ -11,14 +11,50 @@ url:
       path: $YAMLPATH/index.html
       # See https://learn.gramener.com/guide/auth/#authorization for auth rules
       template: true
-  uploadhandler:
-    pattern: /$YAMLURL/initform
-    handler: FunctionHandler
+
+  # FunctionHandler using yaml
+  scipy-app-hello:                            # A unique name for this mapping
+    pattern: /$YAMLURL/hello                  # Map the URL /hello
+    handler: FunctionHandler                  # using the build-in FunctionHandler
+    kwargs:                                   # Pass these options to FunctionHandler
+      function: str(' Hello')                 # Run the str() function with the argument "Hello"
+
+  # FunctionHandler with python file
+  scipy-app-total:
+    pattern: /$YAMLURL/total                             # The "total" URL
+    handler: FunctionHandler                             # runs a function
     kwargs:
-      function: modelhandler_demo.init_form
-      xsrf_cookies: false
-      redirect: /$YAMLURL/
-  modelhandler:
+      function: modelhandler_demo.total(100, 200)        # total() from mentioned py file
+      headers:
+        Content-Type: text/plain                         # Display as JSON
+
+  # URL Patern and Regex
+  scipy-app-lookup:
+    pattern: /$YAMLURL/name/([a-z]+)/age/([0-9]+)   # e.g. /name/john/age/21
+    handler: FunctionHandler                        # Runs a function
+    kwargs:
+        function: modelhandler_demo.name_age        # Run this function
+
+  scipy-app-uploadhandler:
+    pattern: /$YAMLURL/upload
+    handler: UploadHandler
+    kwargs:
+      if_exists: overwrite            # Overwrite the original without backup
+      # if_exists: error              # Raises a HTTP 403 with a reason saying "file exists"
+      # if_exists: backup             # Move the original to filename.YYYYMMDD-HHMMSS.ext
+      # if_exists: unique             # Save to a new file: filename.1, filename.2, etc
+      path: $YAMLPATH/upload_data
+      methods: get                    # Upload listing
+      redirect: /$YAMLURL/            # redirect to url
+
+  # formHandler snippet
+  scipy-app-formhandler:
+    pattern: /$YAMLURL/data
+    handler: FormHandler
+    kwargs:
+      url: $YAMLPATH/upload_data/data.csv
+
+  scipy-app-modelhandler:
     pattern: /$YAMLURL/fit
     handler: FunctionHandler
     kwargs:
@@ -27,13 +63,8 @@ url:
       headers:
         Content-Type: text/plain
         Cache-Control: no-store
-  formhandler:
-    pattern: /$YAMLURL/preview
-    handler: FormHandler
-    kwargs:
-      url: $GRAMEXDATA/apps/mlhandler/data.csv
-      xsrf_cookies: false
-  chart:
+
+  scipy-app-chart:
     pattern: /$YAMLURL/chart.png
     handler: FileHandler
     kwargs:
@@ -41,7 +72,7 @@ url:
       headers:
         Cache-Control: no-store
 
-# Gramex init configurations for app: modelhandler-demo
+# Gramex init configurations for application
 # ----------------------------------------------------------------------------
 import:
   ui:
