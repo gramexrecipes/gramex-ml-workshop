@@ -84,28 +84,4 @@ docker container ls           # list instances
 docker rm gramex-instance     # delete instance
 ```
 
-Download Workshop Material
---------------------------
-
-Download the workshop material from [here](https://github.com/gramexrecipes/gramex-ml-workshop/archive/master.zip) and extract the archive in any convenient location. This location will henceforth be referred to as _project folder_.
-
-Navigate to the project folder through the terminal or the command prompt, and run Gramex as follows:
-
-```bash
-$ gramex
-```
-
-When gramex starts running, you should be able to see some output logs. When you see the following lines,
-
-```
-INFO    22-Apr 13:34:26 __init__ PORT Listening on port 9988
-INFO    22-Apr 13:34:26 __init__ 9988 <Ctrl-B> opens the browser. <Ctrl-D> starts the debugger.
-```
-
-the gramex server is ready to serve the application.
-
-Please visit [`http://localhost:9988`](http://localhost:9988) in your browser. If you see a web page which lookks something  like the following screenshot, you are ready for the workshop.
-
-![](assets/screen.png)
-
 In case of any problems or questions, send an email to jaidev.deshpande@gramener.com
