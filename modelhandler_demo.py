@@ -1,17 +1,16 @@
-from gramex.config import variables
-import numpy as np
-from gramex import cache
-import os
-from pydoc import locate
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model.base import LinearClassifierMixin
-from sklearn import naive_bayes as nb
-from sklearn.tree import plot_tree,  DecisionTreeClassifier
-from tornado.template import Template
 import json
+from pydoc import locate
+
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from gramex import cache
 from scipy.stats import norm
+from sklearn import naive_bayes as nb
+from sklearn.linear_model.base import LinearClassifierMixin
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from tornado.template import Template
 
 
 def total(*items):
@@ -79,7 +78,7 @@ def _make_chart(clf, df):
     return False
 
 
-def fit(handler):
+def train_method(handler):
     url = handler.get_argument('url', default='upload_data/data.csv')
     df = cache.open(url)
     clf = locate(handler.get_argument('model_class'))()

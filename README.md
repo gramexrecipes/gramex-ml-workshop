@@ -61,14 +61,14 @@ In order to provide our app with access to the data, we need to create a URL tha
 The `url:` section maps URLs to content. Here is an example:
 ```
 url:
-    home:                                   # "homepage" can be replaced with any unique name
+    appname-home:                                   # "homepage" can be replaced with any unique name
         pattern: /$YAMLURL/                 # Map the URL /
         handler: FileHandler                # using a built-in FileHandler
         kwargs:                             # Pass these options to FileHandler
             path: $YAMLPATH/index.html      # Use index.html as the path to serve
             template: true                  # rendered as a Tornado template
 
-    hello:                                  # A unique name for this mapping
+    appname-hello:                                  # A unique name for this mapping
         pattern: /hello                     # Map the URL /hello
         handler: FunctionHandler            # using the build-in FunctionHandler
             kwargs:                         # Pass these options to FunctionHandler
@@ -87,7 +87,7 @@ The `url:` section is a name - mapping dictionary. The names are just unique ide
 ## FileHandler
 `gramex.yaml` uses the `FileHandler` to display files. This folder uses the following configuration:
 ```
-home:
+appname-home:
     pattern: /$YAMLURL/
     handler: FileHandler
     kwargs:
@@ -108,11 +108,11 @@ url:
         pattern: /$YAMLURL/total                    # The "total" URL
         handler: FunctionHandler                    # runs a function
         kwargs:
-            function: app_script.total(100, 200)    # total() from app_script.py
+            function: modelhandler.total(100, 200)    # total() from modelhandler.py
             headers:
                 Content-Type: application/json      # Display as JSON
 ```
-It runs `app_script.total()` with the arguments `100, 200` and returns result `300` as `application/json.` app_script.py defines `total` as below:
+It runs `modelhandler.total()` with the arguments `100, 200` and returns result `300` as `application/json.` modelhandler.py defines `total` as below:
 Create python `file app_scrpt.py` in your project directory and write a below function.
 ```
 import json
@@ -128,7 +128,7 @@ app-lookup:
     pattern: /$YAMLURL/name/([a-z]+)/age/([0-9]+)        # e.g. /name/john/age/21
     handler: FunctionHandler                             # Runs a function
     kwargs:
-        function: app_script.name_age                    # Run this function
+        function: modelhandler.name_age                    # Run this function
 ```
 When you access `/name/john/age/21`, `john` and `21` can be accessed via handler.path_args as follows:
 place in `.py` follwing code
@@ -172,7 +172,7 @@ Any file posted with a name of file is uploaded. Here is a sample HTML form:
 Here is a sample configuration to read data from a CSV file:
 
 ```
-  scipy-app-formhandler:
+  appname-formhandler:
     pattern: /$YAMLURL/data
     handler: FormHandler
     kwargs:
@@ -187,8 +187,8 @@ You can read from a HTTP or HTTPS URL.
     ext: csv          # Explicitly specify the extension for HTTP(S) urls
 ```
 
+- FormHandler filters
 ```
-FormHandler filters
 The URL supports operators for filtering rows. The operators can be combined.
 
 ?Continent=Europe ► Continent = Europe
@@ -205,6 +205,24 @@ The URL supports operators for filtering rows. The operators can be combined.
 ?Name~=United ► Name matches &_format=html
 ?Name!~=United ► Name does NOT match United
 ?Name~=United&Continent=Asia ► Name matches United AND Continent is Asia
+```
+
+- FormHandler formats
+```
+By default, FormHandler renders data as JSON. Use ?_format= to change that.
+
+Default: flags
+HTML: flags?_format=html
+CSV: flags?_format=csv
+JSON: flags?_format=json
+XLSX: flags?_format=xlsx
+Table: flags?_format=table from v1.23 - an interactive table viewer
+```
+To include the table format, you must include this in your gramex.yaml:
+```
+import:
+  path: $GRAMEXPATH/apps/formhandler/gramex.yaml
+  YAMLURL: $YAMLURL         # Mount this app at the current folder
 ```
 
 ## Smart alert 

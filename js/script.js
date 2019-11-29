@@ -99,9 +99,9 @@ function render_tc_dd(trainCols) {
     })
 }
 
-function fit() {
+function train() {
   $.ajax({
-    url: `fit`,
+    url: `train_method`,
     type: 'post',
     headers: {
       'Model-Retrain': true
@@ -112,12 +112,12 @@ function fit() {
       'output': targetCol,
       'testSize': testSize,
     },
-    success: (e) => {
-      $('#report').html(e)
+    success: (response_data) => {
+      $('#report').html(response_data)
     }
   })
 }
 
 $('#train').on('click', () => {
-  fit()
+  train()
 })
