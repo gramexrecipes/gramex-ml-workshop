@@ -55,10 +55,10 @@ url:
       url: $YAMLPATH/upload_data/data.csv
 
   scipy-app-modelhandler:
-    pattern: /$YAMLURL/fit
+    pattern: /$YAMLURL/train_method
     handler: FunctionHandler
     kwargs:
-      function: modelhandler_demo.fit
+      function: modelhandler_demo.train_method
       xsrf_cookies: false
       headers:
         Content-Type: text/plain

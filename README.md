@@ -62,14 +62,14 @@ app:
 The `url:` section maps URLs to content. Here is an example:
 ```
 url:
-    home:                                   # "homepage" can be replaced with any unique name
+    appname-home:                                   # "homepage" can be replaced with any unique name
         pattern: /$YAMLURL/                 # Map the URL /
         handler: FileHandler                # using a built-in FileHandler
         kwargs:                             # Pass these options to FileHandler
-            path: $YAMLPATH/home.html       # Use index.html as the path to serve
+            path: $YAMLPATH/index.html       # Use index.html as the path to serve
             template: true                  # rendered as a Tornado template
 
-    hello:                                  # A unique name for this mapping
+    appname-hello:                                  # A unique name for this mapping
         pattern: /hello                     # Map the URL /hello
         handler: FunctionHandler            # using the build-in FunctionHandler
             kwargs:                         # Pass these options to FunctionHandler
@@ -88,7 +88,7 @@ The `url:` section is a name - mapping dictionary. The names are just unique ide
 ## FileHandler
 `gramex.yaml` uses the `FileHandler` to display files. This folder uses the following configuration:
 ```
-scipy-app-home:
+appname-home:
     pattern: /$YAMLURL/
     handler: FileHandler
     kwargs:
@@ -104,15 +104,15 @@ scipy-app-home:
 The `FunctionHandler` runs a function and displays the output. For example, this configuration maps the URL `total` to a FunctionHandler:
 ```
 url:
-    total:
+    appname-total:
         pattern: /$YAMLURL/total                    # The "total" URL
         handler: FunctionHandler                    # runs a function
         kwargs:
-            function: calculations.total(100, 200)  # total() from calculations.py
+            function: modelhandler.total(100, 200)  # total() from modelhandler.py
             headers:
                 Content-Type: application/json      # Display as JSON
 ```
-It runs `calculations.total()` with the arguments `100, 200` and returns result `300` as `application/json.` calculations.py defines `total` as below:
+It runs `modelhandler.total()` with the arguments `100, 200` and returns result `300` as `application/json.` modelhandler.py defines `total` as below:
 ```
 def total(*items):
     return json.dumps(sum(float(item) for item in items))
@@ -121,7 +121,7 @@ def total(*items):
 ## UploadHandler
 `UploadHandler` lets you upload files and manage them. Here is a sample configuration:
 ```
-scipy-app-uploadhandler:
+appname-uploadhandler:
     pattern: /$YAMLURL/upload
     handler: UploadHandler
     kwargs:
@@ -150,7 +150,7 @@ Any file posted with a name of file is uploaded. Here is a sample HTML form:
 Here is a sample configuration to read data from a CSV file:
 
 ```
-  scipy-app-formhandler:
+  appname-formhandler:
     pattern: /$YAMLURL/data
     handler: FormHandler
     kwargs:
@@ -165,8 +165,8 @@ You can read from a HTTP or HTTPS URL.
     ext: csv          # Explicitly specify the extension for HTTP(S) urls
 ```
 
+- FormHandler filters
 ```
-FormHandler filters
 The URL supports operators for filtering rows. The operators can be combined.
 
 ?Continent=Europe ► Continent = Europe
@@ -185,77 +185,43 @@ The URL supports operators for filtering rows. The operators can be combined.
 ?Name~=United&Continent=Asia ► Name matches United AND Continent is Asia
 ```
 
+- FormHandler formats
+```
+By default, FormHandler renders data as JSON. Use ?_format= to change that.
+
+Default: flags
+HTML: flags?_format=html
+CSV: flags?_format=csv
+JSON: flags?_format=json
+XLSX: flags?_format=xlsx
+Table: flags?_format=table from v1.23 - an interactive table viewer
+To include the table format, you must include this in your gramex.yaml:
+```
+
+To include the table format, you must include this in your gramex.yaml:
+
+```
+import:
+  path: $GRAMEXPATH/apps/formhandler/gramex.yaml
+  YAMLURL: $YAMLURL         # Mount this app at the current folder
+```
 
 # Part 3: Files and Templates
 ## Redirection and Templates
 ### Redirection
 Most URL handlers (not all) accept a `redirect:` parameter that redirects the user after completing the action. For example, after an `UploadHandler` is done. Here is the syntax:
 ```
-uploadhandler:
+appname-uploadhandler:
     pattern: /$YAMLURL/upload
     handler: UploadHandler
     kwargs:
-        if_exists: overwrite
-        path: $YAMLPATH/upload_data
-        redirect: /$YAMLURL/show-data       # redirects on the url /show-data which defined below
+      if_exists: overwrite            # Overwrite the original without backup
+      # if_exists: error              # Raises a HTTP 403 with a reason saying "file exists"
+      # if_exists: backup             # Move the original to filename.YYYYMMDD-HHMMSS.ext
+      # if_exists: unique             # Save to a new file: filename.1, filename.2, etc
+      path: $YAMLPATH/upload_data
+      methods: get                    # Upload listing
+      redirect: /$YAMLURL/            # redirect to url
 ```
 NOTE: You can only redirect pages that don’t return any content.
 
-### Templates
-The `template` configuration renders files as `Tornado templates`. To serve a file as a Tornado template, use the following configuration:
-```
-templates:
-    pattern: /$YAMLURL/show-data
-    handler: FileHandler                    # displays a file
-    kwargs:
-        path: $YAMLPATH/reports.html        # named reports.html
-        template: true                      # rendered as a Tornado template
-```
-
-Template files can contain any template feature. Here’s a sample `reports.html`.
-```html
-{% import os %}
-{% import json %}
-{% import pandas as pd %}
-{% import gramex.cache as gxc %}
-{% set args = handler.get_argument %}
-{% import gramex.handlers.uploadhandler %}
-{% set uploader = gramex.handlers.uploadhandler.FileUpload('./upload_data').info() %}
-
-<h1 align="center"> {{list(uploader.values())[-1]['filename']}} </h1>
-<br>
-{% set file_name = list(uploader.values())[-1]['filename'] %}
-{% set file_path = os.path.join(gramex.config.variables['$YAMLPATH'], 'upload_data') %}
-<!-- <p>{{args('curr_file', 'NO')}}</p> -->
-{% set data = pd.read_csv('{0}/{1}'.format(file_path, file_name), encoding='utf-8') %}
-{% set data_dic = data.to_dict(orient='records') %}
-{% set col_li = list(data_dic[0].keys()) %}
-<div>
-  <table border="1">
-    <thead>
-      <tr>
-        {% for col in col_li %}
-          <th>{{col}}</th>
-        {% end %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for i, d in enumerate(data_dic) %}
-        <tr>
-          {% for c in col_li %}
-            <td>{{d[c]}}</td>
-          {% end %}
-        </tr>
-      {% end %}
-    </tbody>
-  </table>
-</div>
-```
-# Part 4: Putting it all together
-..
-
-## Contributions
-
-- Nivedita Deshmukh <nivedita.deshmukh@gramener.com>
-- Kamlesh Jaiswal <kamlesh.jaiswal@gramener.com>
-- Jaidev Deshpande <jaidev.deshpande@gramener.com>
