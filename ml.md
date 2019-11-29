@@ -363,10 +363,9 @@ create `linear_model.json` add below vega code.
 - Check Speech AI sample application built on Gramex https://ai.gramener.com/speechai/
 
 
-Please share your feedback with us here https://bit.ly/gramex-scipy.
+Please share your feedback with us here https://bit.ly/gramex-scipy This will take 2 min of yours.
 
 In case of any query feel free to reach out.
-- Jaidev Deshpande
-- Kamlesh Jaiswal
-- Nivedita Deshmukh
-
+- Jaidev Deshpande <jaidev.deshpande@gramener.com>
+- Nivedita Deshmukh <nivedita.deshmukh@gramener.com>
+- Kamlesh Jaiswal <kamlesh.jaiswal@gramener.com>
