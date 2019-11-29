@@ -223,5 +223,6 @@ appname-uploadhandler:
       methods: get                    # Upload listing
       redirect: /$YAMLURL/            # redirect to url
 ```
+
 NOTE: You can only redirect pages that don’t return any content.
 
