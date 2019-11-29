@@ -1,9 +1,13 @@
 Building ML Applications with Gramex
 ===================================
 
-## Setup
+## Setup and Installation
 
 - [Installation guide](https://github.com/kamleshdjango/gramex-ml-workshop/blob/scipy-workshop/installation_guide.md)
+
+
+Getting Started with Gramex
+============================
 
 # Part 1: Gramex as an HTTP Server
 
@@ -55,6 +59,15 @@ app:
 2. `listen:` holds keyword arguments for the HTTP server. The most important parameter is the port: (default: 9988.) The remaining parameters are passed to HTTPServer().
 3. `settings:` holds the Tornado application settings.
 4. `debug:` holds the debug settings
+
+# YAML imports
+One config file can import another. For example:
+```
+import:
+  ui:
+    path: $GRAMEXAPPS/ui/gramex.yaml   # import this YAML file relative to current file path
+    YAMLURL: $YAMLURL/ui/
+```
 
 ## URL mapping
 In order to provide our app with access to the data, we need to create a URL that sends data to the app.
@@ -254,8 +267,7 @@ alert:
     # condition: once("Hello World!")
     to:
       - user.name@email.com
-      - 
-      cc: user.name@email.com
+    cc: user.name@email.com
     subject: Scheduled alert
     body: This email will be scheduled and sent as long as Gramex is running.
     # html: <p>This content will be shown in <em>HTML</em> on <strong>supported devices</strong>.
@@ -307,23 +319,5 @@ logout
 ```
 
 Similiary you can have other login authentication like `google auth`, `facebook auth`, `twitter auth` etc..
-which require few steps like -
-- Go to the particualr App.
-- Select an existing app, or add a new app. Select website.
-- Enter Name, Description and website.
-- Copy the Application ID and App secret key to the application settings.
 
-# YAML imports
-One config file can import another. For example:
-```
-import:
-  ui:
-    path: $GRAMEXAPPS/ui/gramex.yaml   # import this YAML file relative to current file path
-    YAMLURL: $YAMLURL/ui/
-```
-
-## Contributions
-
-- Nivedita Deshmukh <nivedita.deshmukh@gramener.com>
-- Kamlesh Jaiswal <kamlesh.jaiswal@gramener.com>
-- Jaidev Deshpande <jaidev.deshpande@gramener.com>
+# Start with ML application click [here](https://github.com/kamleshdjango/gramex-ml-workshop/blob/scipy-workshop/ml.md)
