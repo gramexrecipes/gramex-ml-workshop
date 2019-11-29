@@ -3,7 +3,7 @@ Building ML Applications with Gramex
 
 ## Setup
 
-- [Installation guide](https://code.gramener.com/nivedita.deshmukh/gramex-scipy-workshop/blob/master/installation_guide.md)  Note: URL needs to be updated
+- [Installation guide](https://github.com/kamleshdjango/gramex-ml-workshop/blob/scipy-workshop/installation_guide.md)
 
 # Part 1: Gramex as an HTTP Server
 
@@ -46,9 +46,9 @@ The `app:` section controls Gramex’s startup. It has these sub-sections.
 ```diff
 app:
     listen:
-        port: 8888
+        port: 9987
     settings:
-        debug: True
+        debug: False
     browser: '/'
 ```
 1. `browser:` is the URL to open when Gramex is launched. (default: False)
@@ -103,6 +103,13 @@ appname-home:
 The `FunctionHandler` runs a function and displays the output. For example, this configuration maps the URL `total` to a FunctionHandler:
 ```
 url:
+    # FunctionHandler using yaml
+    hello:                                        # A unique name for this mapping
+        pattern: /$YAMLURL/hello                  # Map the URL /hello
+        handler: FunctionHandler                  # using the build-in FunctionHandler
+        kwargs:                                   # Pass these options to FunctionHandler
+            function: str('Hello Gramex')         # Run the str() function with the argument "Hello Gramex"
+    
     # FunctionHandler with python file
     total:
         pattern: /$YAMLURL/total                    # The "total" URL
