@@ -8,29 +8,28 @@ Building ML Applications with Gramex
 # Part 1: Gramex as an HTTP Server
 
 ## Gramex init
-To create an empty project, run `gramex init` inside your project directory on your terminal.
+Run `gramex init` on your terminal.
 ```
-$ gramex init
+gramex init
 ```
-
 It generates a simple boilerplate:
-- `gramex.yaml`: Gramex [configuration](https://learn.gramener.com/guide/config/)
+
+- `gramex.yaml`: Gramex configuration
 - `index.html`: default home page
 - `README.md`: project documentation
 
 … and a set of configurations that help development.
-- `.gitignore` [info](https://git-scm.com/docs/gitignore)
-- `.gitlab-ci.yml` [info](https://docs.gitlab.com/ce/ci/yaml/)
-
-
-Navigate to the project folder through the terminal or the command prompt, and run Gramex as follows:
+- `.gitignore`      # Ignores a set of various files 
+- `.gitlab-ci.yml`  # The `.gitlab-ci.yml` file tells the GitLab Runner what to do.
+                    # `gramex init` will created it with configure your GitLab project to use a Runner.
+                    # On any push to your repository, GitLab will look for the .gitlab-ci.yml file and start jobs on Runners according to the contents of the file, for that commit.
+Open a terminal, navigate to the project folder and run Gramex as follows:
 
 ```bash
 $ gramex
 ```
-
 When gramex starts running, you should be able to see some output logs. When you see the following lines,
-
+gramex start on default port `9988`
 ```
 INFO    22-Apr 13:34:26 __init__ PORT Listening on port 9988
 INFO    22-Apr 13:34:26 __init__ 9988 <Ctrl-B> opens the browser. <Ctrl-D> starts the debugger.
@@ -41,7 +40,6 @@ the gramex server is ready to serve the application.
 Please visit [`http://localhost:9988`](http://localhost:9988) in your browser. If you see a web page which looks something like the following screenshot, you are ready for the workshop.
 
 ![](assets/screen.png)
-
 
 ## App configuration
 The `app:` section controls Gramex’s startup. It has these sub-sections.
@@ -59,6 +57,7 @@ app:
 4. `debug:` holds the debug settings
 
 ## URL mapping
+In order to provide our app with access to the data, we need to create a URL that sends data to the app.
 The `url:` section maps URLs to content. Here is an example:
 ```
 url:
@@ -66,7 +65,7 @@ url:
         pattern: /$YAMLURL/                 # Map the URL /
         handler: FileHandler                # using a built-in FileHandler
         kwargs:                             # Pass these options to FileHandler
-            path: $YAMLPATH/home.html       # Use index.html as the path to serve
+            path: $YAMLPATH/index.html      # Use index.html as the path to serve
             template: true                  # rendered as a Tornado template
 
     hello:                                  # A unique name for this mapping
@@ -88,40 +87,63 @@ The `url:` section is a name - mapping dictionary. The names are just unique ide
 ## FileHandler
 `gramex.yaml` uses the `FileHandler` to display files. This folder uses the following configuration:
 ```
-scipy-app-home:
+home:
     pattern: /$YAMLURL/
     handler: FileHandler
     kwargs:
-      path: $YAMLPATH/index.html
+      path: $YAMLPATH/index.html      # Serve files from this YAML file's directory
       template: true
 ```
 `$YAMLURL` is replaced by the current URL’s path (in this case, `/filehandler/`) and `$YAMLPATH` is replaced by the directory of `gramex.yaml`.
 
 ### index.html
-...
+<h1>Say Hello Gramex.</h1>
 
 ## FunctionHandler
 The `FunctionHandler` runs a function and displays the output. For example, this configuration maps the URL `total` to a FunctionHandler:
 ```
 url:
+    # FunctionHandler with python file
     total:
         pattern: /$YAMLURL/total                    # The "total" URL
         handler: FunctionHandler                    # runs a function
         kwargs:
-            function: calculations.total(100, 200)  # total() from calculations.py
+            function: app_script.total(100, 200)    # total() from app_script.py
             headers:
                 Content-Type: application/json      # Display as JSON
 ```
-It runs `calculations.total()` with the arguments `100, 200` and returns result `300` as `application/json.` calculations.py defines `total` as below:
+It runs `app_script.total()` with the arguments `100, 200` and returns result `300` as `application/json.` app_script.py defines `total` as below:
+Create python `file app_scrpt.py` in your project directory and write a below function.
 ```
+import json
 def total(*items):
     return json.dumps(sum(float(item) for item in items))
+```
+
+### URL path arguments
+You can specify wildcards in the URL pattern. For example:
+place in `.yaml` following.
+```
+app-lookup:
+    pattern: /$YAMLURL/name/([a-z]+)/age/([0-9]+)        # e.g. /name/john/age/21
+    handler: FunctionHandler                             # Runs a function
+    kwargs:
+        function: app_script.name_age                    # Run this function
+```
+When you access `/name/john/age/21`, `john` and `21` can be accessed via handler.path_args as follows:
+place in `.py` follwing code
+```
+def name_age(handler):
+    """URL path arguments."""
+    name = handler.path_args[0]
+    age = handler.path_args[1]
+    return json.dumps({"Name": name, "Age": age})
 ```
 
 ## UploadHandler
 `UploadHandler` lets you upload files and manage them. Here is a sample configuration:
 ```
-scipy-app-uploadhandler:
+app-uploadhandler:
     pattern: /$YAMLURL/upload
     handler: UploadHandler
     kwargs:
@@ -185,74 +207,95 @@ The URL supports operators for filtering rows. The operators can be combined.
 ?Name~=United&Continent=Asia ► Name matches United AND Continent is Asia
 ```
 
-
-# Part 3: Files and Templates
-## Redirection and Templates
-### Redirection
-Most URL handlers (not all) accept a `redirect:` parameter that redirects the user after completing the action. For example, after an `UploadHandler` is done. Here is the syntax:
+## Smart alert 
+The alert service sends reports via email.
+First, set up an `email service`. Here is a sample:
 ```
-uploadhandler:
-    pattern: /$YAMLURL/upload
-    handler: UploadHandler
+email:
+  gramex-guide-gmail:
+    type: gmail                       # Type of email used is GMail
+    email: gramex.guide@gmail.com     # Generic email ID used to test e-mails
+    password: tlpmupxnhucitpte        # App-specific password created for Gramex guide
+```
+### Alert Example
+```
+Email scheduling uses the same keys as scheduler: `minutes`, `hours`, `dates`, `weekdays`, `months` and `years`.
+alert:
+  alert-schedule:
+    # days: '*'                       # Send email every day
+    # hours: '6, 12'                  # at 6am and 12noon
+    # minutes: 0                      # at the 0th minute, i.e. 6:00am and 12:00pm
+    startup: false
+    # condition: once("Hello World!")
+    to:
+      - user.name@email.com
+      - 
+      cc: user.name@email.com
+    subject: Scheduled alert
+    body: This email will be scheduled and sent as long as Gramex is running.
+    # html: <p>This content will be shown in <em>HTML</em> on <strong>supported devices</strong>.
+    # markdown: |
+    #   <p>This email has inline images.</p>
+    #   <img src="cid:img1">
+    # markdownfile: $YAMLPATH/content.md
+    # images:
+    #  img1: $YAMLPATH/required_sequence.png
+    # attachments:
+    #  - map_data.xlsx
+```
+- To send an email on `startup`, use startup: instead of `days:`, `hours:`, etc. This sends an email every time Gramex starts.
+- To avoid resentding email, condition: once(..) ensures that an alert campaign is sent out only once. once() returns boolean.
+- `html:` specifies the HTML content to be sent.
+- `markdown:` can be used to specify the HTML content as Markdown instead of html (and overrides it).
+- `markdownfile:` place in markdownfile instead and pass file name
+here `content.md` file to attach in markdown.
+```
+<p>This email has inline images.</p>
+<img src="cid:img1">
+```
+
+# Part 3: Security
+## Authentication
+Gramex allows users to log in using various single sign-on methods.
+- Define a Gramex auth handler. This URL renders / redirects to a login page
+- When the user logs in, send the credentials to the auth handler
+- If credentials are valid, store the user details and redirect the user. Else show an error message.
+This configuration creates a `simple auth` page:
+```
+login/simple:
+    pattern: /$YAMLURL/simple           # Map this URL
+    handler: SimpleAuth                 # to the SimpleAuth handler
     kwargs:
-        if_exists: overwrite
-        path: $YAMLPATH/upload_data
-        redirect: /$YAMLURL/show-data       # redirects on the url /show-data which defined below
+        credentials:                     # Specify the user IDs and passwords
+            alpha: alpha                 # User: alpha has password: alpha
+            beta: beta                   # Similarly for beta
+        template: $YAMLPATH/login.html   # Optional login template
 ```
-NOTE: You can only redirect pages that don’t return any content.
-
-### Templates
-The `template` configuration renders files as `Tornado templates`. To serve a file as a Tornado template, use the following configuration:
+## log out
+This configuration creates a `logout page`:
 ```
-templates:
-    pattern: /$YAMLURL/show-data
-    handler: FileHandler                    # displays a file
+logout
+    pattern: /$YAMLURL/logout   # Map this URL
+    handler: LogoutHandler      # to the logout handler
     kwargs:
-        path: $YAMLPATH/reports.html        # named reports.html
-        template: true                      # rendered as a Tornado template
+        redirect: /$YAMLURL/login/
 ```
 
-Template files can contain any template feature. Here’s a sample `reports.html`.
-```html
-{% import os %}
-{% import json %}
-{% import pandas as pd %}
-{% import gramex.cache as gxc %}
-{% set args = handler.get_argument %}
-{% import gramex.handlers.uploadhandler %}
-{% set uploader = gramex.handlers.uploadhandler.FileUpload('./upload_data').info() %}
+Similiary you can have other login authentication like `google auth`, `facebook auth`, `twitter auth` etc..
+which require few steps like -
+- Go to the particualr App.
+- Select an existing app, or add a new app. Select website.
+- Enter Name, Description and website.
+- Copy the Application ID and App secret key to the application settings.
 
-<h1 align="center"> {{list(uploader.values())[-1]['filename']}} </h1>
-<br>
-{% set file_name = list(uploader.values())[-1]['filename'] %}
-{% set file_path = os.path.join(gramex.config.variables['$YAMLPATH'], 'upload_data') %}
-<!-- <p>{{args('curr_file', 'NO')}}</p> -->
-{% set data = pd.read_csv('{0}/{1}'.format(file_path, file_name), encoding='utf-8') %}
-{% set data_dic = data.to_dict(orient='records') %}
-{% set col_li = list(data_dic[0].keys()) %}
-<div>
-  <table border="1">
-    <thead>
-      <tr>
-        {% for col in col_li %}
-          <th>{{col}}</th>
-        {% end %}
-      </tr>
-    </thead>
-    <tbody>
-      {% for i, d in enumerate(data_dic) %}
-        <tr>
-          {% for c in col_li %}
-            <td>{{d[c]}}</td>
-          {% end %}
-        </tr>
-      {% end %}
-    </tbody>
-  </table>
-</div>
+# YAML imports
+One config file can import another. For example:
 ```
-# Part 4: Putting it all together
-..
+import:
+  ui:
+    path: $GRAMEXAPPS/ui/gramex.yaml   # import this YAML file relative to current file path
+    YAMLURL: $YAMLURL/ui/
+```
 
 ## Contributions
 
