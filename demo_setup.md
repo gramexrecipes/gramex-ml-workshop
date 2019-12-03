@@ -48,7 +48,7 @@ The core function of this application is to train a classification model on a pa
 and to test its performance on the other part. To do this, the application has a control panel
 which looks like this:
 
-![](assets/ml-controls.md)
+![](assets/ml-controls.png)
 
 You can test differnt classification algorithms on your dataset as follows:
 
