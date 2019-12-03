@@ -57,7 +57,7 @@ Installing Gramex
 After the above steps are successfully executed, install gramex as follows:
 
 ```bash
-$ pip install git+https://github.com/gramener/gramex@jd-grx-core#egg=gramex
+$ pip install gramex
 $ gramex setup ui
 ```
 
