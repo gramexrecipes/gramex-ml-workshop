@@ -57,6 +57,7 @@ __pycache__/
 # Sublime-text workspaces, etc
 *.sublime-*
 .vscode/
+.vim/
 
 # IPython Notebook checkpoints
 .ipynb_checkpoints
@@ -77,3 +78,4 @@ $RECYCLE.BIN/
 # For Linux FUSE file system
 .fuse_hidden*
 chart.png
+

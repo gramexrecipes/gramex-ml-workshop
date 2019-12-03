@@ -13,19 +13,6 @@ from sklearn.tree import DecisionTreeClassifier, plot_tree
 from tornado.template import Template
 
 
-def total(*items):
-    """Addition of items numbers."""
-    # return json.dumps(sum(float(item) for item in items))
-    return str(sum(items))
-
-
-def name_age(handler):
-    """URL path arguments."""
-    name = handler.path_args[0]
-    age = handler.path_args[1]
-    return json.dumps({"Name": name, "Age": age})
-
-
 def _make_gnb_chart(clf, dfx):
     plt.close('all')
 
@@ -81,9 +68,9 @@ def _make_chart(clf, df):
 def train_method(handler):
     url = handler.get_argument('url', default='upload_data/data.csv')
     df = cache.open(url)
-    clf = locate(handler.get_argument('model_class'))()
+    clf = locate(handler.get_argument('model'))()
     test_size = float(handler.get_argument('testSize')) / 100
-    target_col = handler.get_argument('output')
+    target_col = handler.get_argument('targetCol')
 
     dfy = df[target_col]
     dfx = df[[c for c in df if c != target_col]]

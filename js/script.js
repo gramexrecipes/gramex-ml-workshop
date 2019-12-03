@@ -1,6 +1,6 @@
 var modelName = null
 var trainCols = []
-var testSize = $('.custom-range').val()
+var testSize = "33"
 var targetCol = null
 var url = g1.url.parse(location.href)
 const modelist = {
@@ -63,9 +63,18 @@ const modelist = {
   key: 'model'
 };
 
+$('#testSize').on('change', (e) => {
+  testSize = $('#testSize').val()
+  $('#testSizeDisplay').html(`<p>${testSize} %</p>`)
+})
+
 $('.formhandler').on('load', function (data) {
   // Show ML section if data is available
   $(data.length) ? $('#mlSection').removeClass('d-none') : $('#mlSection').addClass('d-none');
+  let cols = data.meta.columns
+  targetCol = cols[cols.length - 1].name
+  console.log(`Target column: ${targetCol}`)
+  // targetCol = data.meta.columns[0].name
 
   trainCols = _.filter(data.meta.columns, (c) => {
     return !c.hide
@@ -93,7 +102,7 @@ function render_tc_dd(trainCols) {
       targetCol = url.searchKey.targetCol
     })
     .dropdown({
-      data: trainCols,
+      data: trainCols.reverse(),
       target: 'pushState',
       key: 'targetCol'
     })
@@ -107,9 +116,9 @@ function train() {
       'Model-Retrain': true
     },
     data: {
-      'model_class': modelName,
+      'model': modelName,
       'url': 'upload_data/data.csv',
-      'output': targetCol,
+      'targetCol': targetCol,
       'testSize': testSize,
     },
     success: (response_data) => {
