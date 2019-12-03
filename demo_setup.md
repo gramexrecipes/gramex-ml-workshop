@@ -20,11 +20,11 @@ You should now see a web page which looks similar to the following:
 You may use the following sample datasets included with this application.
 Download any of these files and upload them to the application by clicking the "Browse" button.
 
-1. [Fisher's iris dataset](data/iris.csv) - Predict the species of Iris flower samples based on measurements of petals and sepals.
+1. [Fisher's iris dataset](datasets/iris.csv) - Predict the species of Iris flower samples based on measurements of petals and sepals.
 
-2. [UCI Breast Cancer Diagnostic dataset](data/breast_cancer.csv) - Predict whether a tumor is malignant, based on measurements of cells in autopsied breast masses.
+2. [UCI Breast Cancer Diagnostic dataset](datasets/breast_cancer.csv) - Predict whether a tumor is malignant, based on measurements of cells in autopsied breast masses.
 
-3. [UCI Wine dataset](data/wine.csv) - Predict type of wine based on chemical analysis properties of wine samples.
+3. [UCI Wine dataset](datasets/wine.csv) - Predict type of wine based on chemical analysis properties of wine samples.
 
 
 Additionally, any dataset can be uploaded in CSV format, subject to the following requirements:
