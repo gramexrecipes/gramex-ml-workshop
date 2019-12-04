@@ -1,4 +1,5 @@
 import json
+import os
 from pydoc import locate
 
 import matplotlib.pyplot as plt
@@ -11,6 +12,10 @@ from sklearn.linear_model.base import LinearClassifierMixin
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from tornado.template import Template
+
+op = os.path
+YAMLPATH = op.dirname(__file__)
+DIR = op.join(YAMLPATH, 'upload_data')
 
 
 def _make_gnb_chart(clf, dfx):
@@ -37,19 +42,19 @@ def _make_gnb_chart(clf, dfx):
         _ax.set_xlabel(dfx.columns[i])
         _ax.xaxis.set_label_position('top')
     plt.tight_layout()
-    plt.savefig('chart.png')
+    plt.savefig(op.join(YAMLPATH, 'chart.png'))
 
 
 def _plot_decision_tree(clf, dfx):
     plt.close('all')
     fig, ax = plt.subplots()
     plot_tree(clf, filled=True, ax=ax)
-    plt.savefig('chart.png')
+    plt.savefig(op.join(YAMLPATH, 'chart.png'))
 
 
 def _make_chart(clf, df):
     if isinstance(clf, (LinearClassifierMixin, nb.MultinomialNB)):
-        with open('linear_model.json', 'r', encoding='utf8') as fout:
+        with open(op.join(YAMLPATH, 'linear_model.json'), 'r', encoding='utf8') as fout:
             spec = json.load(fout)
         cdf = pd.DataFrame(clf.coef_, columns=df.columns)
         cdf['class'] = clf.classes_
@@ -66,7 +71,8 @@ def _make_chart(clf, df):
 
 
 def train_method(handler):
-    url = handler.get_argument('url', default='upload_data/data.csv')
+    url = handler.get_argument('url')
+    url = op.join(YAMLPATH, url)
     df = cache.open(url)
     clf = locate(handler.get_argument('model'))()
     test_size = float(handler.get_argument('testSize')) / 100
@@ -82,7 +88,7 @@ def train_method(handler):
     clf.fit(xtrain, ytrain)
     score = clf.score(xtest, ytest)
 
-    with open('report.html', 'r', encoding='utf8') as fout:
+    with open(op.join(YAMLPATH, 'report.html'), 'r', encoding='utf8') as fout:
         tmpl = Template(fout.read())
     viz = _make_chart(clf, dfx)
     return tmpl.generate(score=score, model=clf, spec=viz)
