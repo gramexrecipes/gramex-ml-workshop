@@ -71,7 +71,8 @@ def _make_chart(clf, df):
 
 
 def train_method(handler):
-    url = handler.get_argument('url', default=op.join(DIR, 'data.csv'))
+    url = handler.get_argument('url')
+    url = op.join(YAMLPATH, url)
     df = cache.open(url)
     clf = locate(handler.get_argument('model'))()
     test_size = float(handler.get_argument('testSize')) / 100
