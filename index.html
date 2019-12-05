@@ -29,8 +29,9 @@
   </div><!-- .container -->
   <div class="divider"></div>
   {% import os %}
-  {% if os.path.exists('upload_data/data.csv') %}
-  <div class="container py-4">
+  {% from modelhandler_demo import DIR %}
+  {% if os.path.exists(os.path.join(DIR, 'data.csv')) %}
+  <div class="container-fluid py-4">
     <div class="formhandler" data-src="data"></div>
   </div>
   {% end %}
