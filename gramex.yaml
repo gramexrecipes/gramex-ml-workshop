@@ -20,7 +20,6 @@ url:
       methods: get                    # Upload listing
       redirect: /$YAMLURL/            # redirect to url
 
-  # formHandler snippet
   formhandler:
     pattern: /$YAMLURL/data
     handler: FormHandler
@@ -36,6 +35,42 @@ url:
       headers:
         Content-Type: text/plain
         Cache-Control: no-store
+
+  workshop/final:
+    pattern: /$YAMLURL/final
+    handler: FileHandler
+    kwargs:
+      path: $YAMLPATH/final.html
+      template: true
+
+  # snippets for workshop
+  workshop/snippets/base:
+    pattern: /$YAMLURL/snippets/base
+    handler: FileHandler
+    kwargs:
+      path: $YAMLPATH/snippets/base.html
+      template: true
+
+  workshop/snippets/table:
+    pattern: /$YAMLURL/snippets/table
+    handler: FileHandler
+    kwargs:
+      path: $YAMLPATH/snippets/table.html
+      template: true
+
+  workshop/snippets/training:
+    pattern: /$YAMLURL/snippets/training
+    handler: FileHandler
+    kwargs:
+      path: $YAMLPATH/snippets/training.html
+      template: true
+
+  workshop/snippets/upload:
+    pattern: /$YAMLURL/snippets/upload_file
+    handler: FileHandler
+    kwargs:
+      path: $YAMLPATH/snippets/upload.html
+      template: true
 
 # Gramex init configurations for application
 # ----------------------------------------------------------------------------

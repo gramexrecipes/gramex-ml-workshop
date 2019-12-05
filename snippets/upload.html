@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Building ML applications with Gramex</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../ui/bootstrap-select/dist/css/bootstrap-select.min.css">
+</head>
+
+<body>
+  {% set base = '.' %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">
+    <a class="navbar-brand" href="{{ base }}">
+      <!-- Replace with your logo. Just specify height, not width. -->
+      <img height="36" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkAQAAAADJe6U1AAAABGdBTUEAALGPC/xhBQAAAAJ0Uk5TAAB2k804AAAANUlEQVR42mNgwAX4/x8AkvZgsh5M/geTP8CyH0ggP1BKMoLIH8wfwG54AHbPA7jb+P9jcz0AKpcxBQbNJ8sAAAAASUVORK5CYII=" alt="Logo">
+    </a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="navbar-nav mx-auto">
+        <span class="nav-item nav-link active text-uppercase h5 mb-0">ML App with Gramex</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- upload component -->
+  <div class="container py-4">
+    <div class="card-deck">
+      <div class="card">
+        <div class="card-body">
+          <form action="../upload" method="POST" enctype="multipart/form-data">
+            <input name="file" type="file">
+            <button type="buton" id="file_upload_btn">Submit</button>
+            <input type="hidden" name="_xsrf" value="{{ handler.xsrf_token }}">
+            <input type="hidden" name="save" value="data.csv">
+          </form>
+        </div>
+      </div>
+    </div><!-- .card -->
+  </div><!-- .container -->
+</body>

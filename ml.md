@@ -2,7 +2,10 @@
 Lets start with ML code using gramex,
 
 - Write FunctionHandler in `gramex.yaml` to call python code
-```
+
+## Define routes in YAML
+
+```yaml
   scipy-app-modelhandler:
     pattern: /$YAMLURL/train_method
     handler: FunctionHandler
@@ -24,7 +27,10 @@ Lets start with ML code using gramex,
 ```
 
 - Write Python code to `application_name.py` file and import your ml libraries
-```
+
+## Python imports
+
+```py
 import json
 from pydoc import locate
 
@@ -38,11 +44,16 @@ from sklearn.linear_model.base import LinearClassifierMixin
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from tornado.template import Template
+```
 
-
+## Define routes in YAML
+```py
 def train_method(handler):
+    """Training, testing method."""
     url = handler.get_argument('url', default='upload_data/data.csv')
     df = cache.open(url)
+
+    # read variables adjusted in the UI
     clf = locate(handler.get_argument('model_class'))()
     test_size = float(handler.get_argument('testSize')) / 100
     target_col = handler.get_argument('output')
@@ -51,22 +62,22 @@ def train_method(handler):
     dfx = df[[c for c in df if c != target_col]]
     x, y = dfx.values, dfy.values
 
+    # train, test split, fit, determine accuracy
     xtrain, xtest, ytrain, ytest = train_test_split(
             x, y, test_size=test_size, shuffle=True, stratify=y)
-
     clf.fit(xtrain, ytrain)
     score = clf.score(xtest, ytest)
 
+    # write back the output to report.html, custom tornado template
     with open('report.html', 'r', encoding='utf8') as fout:
         tmpl = Template(fout.read())
     viz = _make_chart(clf, dfx)
     return tmpl.generate(score=score, model=clf, spec=viz)
-
 ```
 
 - generate interactive and static charts
 
-```
+```py
 def _make_gnb_chart(clf, dfx):
     plt.close('all')
 
@@ -121,38 +132,46 @@ def _make_chart(clf, df):
 ```
 
 - Write html code in `index.html` and call train data from front-end
-```
+
+```html
 <div class="divider"></div>
-  <div class="col-6">
-    <div class="container-fluid py-4 d-none" id="mlSection">
-      <div class="form-group row">
-        <label for="targetCol" class="col-sm-4 col-form-label">Select Target Column:</label>
-        <div class="col-sm-8">
-          <div id="targetCol"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <h3>Tweak the parameters</h3>
+        <div class="container py-4 d-none" id="mlSection">
+          <div class="form-group row">
+            <label for="targetCol" class="col-sm-4 col-form-label">Select Target Column:</label>
+            <div class="col-sm-8">
+              <div id="targetCol"></div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="testSize" class="col-sm-4 col-form-label">Select Test Size:</label>
+            <div class="col-8">
+              <input id="testSize" type="range" class="custom-range" name="testSize" value="33">
+            </div>
+            <div id="testSizeDisplay" class="col-sm"><p>33 %</p></div>
+          </div>
+          <div class="form-group row">
+            <label for="algorithm" class="col-sm-4 col-form-label">Select Algorithm:</label>
+            <div class="col-sm-8">
+              <div id="algorithm"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" id="train">Train</button>
+          </div>
         </div>
       </div>
-      <div class="form-group row">
-        <label for="testSize" class="col-sm-4 col-form-label">Select Test Size:</label>
-        <div class="col-8">
-          <input id="testSize" type="range" class="custom-range" name="testSize" value="33">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="algorithm" class="col-sm-4 col-form-label">Select Algorithm:</label>
-        <div class="col-sm-8">
-          <div id="algorithm"></div>
-        </div>
-      </div>
-      <div class="form-group">
-        <button class="btn btn-primary" id="train">Train</button>
-      </div>
+      <div id="report" class="col-6"></div>
     </div>
   </div>
-  <div id="report" class="col-6"></div>
 ```
 
 - Create `report.html` file and add scaffolding
-```
+
+```html
 {% if score < 0.5 %}
   {% set tcls = 'text-danger' %}
 {% elif score < 0.7 %}
@@ -197,7 +216,7 @@ def _make_chart(clf, df):
 # Trigger your python code using jQuery
 - create `js/script.js` file and add below lines
 
-```
+```js
 var modelName = null
 var trainCols = []
 var testSize = $('.custom-range').val()
@@ -328,7 +347,7 @@ $('#train').on('click', () => {
 # To add interactive charts use [vega](https://vega.github.io/vega/)
 create `linear_model.json` add below vega code.
 
-```
+```json
 {
 	"width": 360,
 	"height": 270,
@@ -359,11 +378,6 @@ create `linear_model.json` add below vega code.
 }
 ```
 
-- Visit our [AI Labs](https://gramener.com/ailabs/)
-- Check Speech AI sample application built on Gramex https://ai.gramener.com/speechai/
-
-
-Please share your feedback with us here https://bit.ly/gramex-scipy This will take 2 min of yours.
 
 In case of any query feel free to reach out.
 - Jaidev Deshpande <jaidev.deshpande@gramener.com>
