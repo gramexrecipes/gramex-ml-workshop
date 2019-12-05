@@ -8,7 +8,7 @@
 
 ## Assumptions
 
-- you've installed Gramex correctly. If you've noticed any errors please share now. [Installation Instructions](install.md).
+- you've installed Gramex correctly. If you've noticed any errors please share now.
 - you're familiar with ML and would like to build web apps easily.
 
 ## What we will do today
