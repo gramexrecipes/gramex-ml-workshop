@@ -13,7 +13,7 @@
 
 ## What we will do today
 
-- construct a simple app with building blocks (HTML, JS, python, gramex, little tornado).
+- construct a simple app with building blocks (`HTML`, `JS`, `Python`, `Gramex`, little `Tornado`).
 - create an app that trains, tests datasets and review the output.
 - we won't be reviewing ML algorithms or scikit-learn.
 
@@ -25,9 +25,11 @@ This is how the application would at the end of it:
 
 1) Make sure you install the [necessary software](install.md) before you arrive at the workshop.
 
-2) Use [Visual Studio Code](https://code.visualstudio.com/), add `` as a workspace.
+2) Clone this [repository](https://github.com/gramexrecipes/gramex-ml-workshop/), stick with `master` branch.
 
-3) Optionally, you can add our VSCode extension [Gramex Snippets](https://marketplace.visualstudio.com/items?itemName=gramener.gramexsnippets). Include the below lines in `settings.json` in VSCode for suggestions to work.
+3) Use [Visual Studio Code](https://code.visualstudio.com/), add the cloned directory as a workspace.
+
+4) Optionally, you can add our VSCode extension [Gramex Snippets](https://marketplace.visualstudio.com/items?itemName=gramener.gramexsnippets). Include the below lines in `settings.json` in VSCode for suggestions to work.
 
 ```json
 {
@@ -40,8 +42,6 @@ This is how the application would at the end of it:
   "editor.snippetSuggestions": "inline",
 }
 ```
-
-Read: [installation instructions](install.md).
 
 ## Outline
 
@@ -136,5 +136,5 @@ Please share your feedback with us here http://bit.ly/gramex-pyconf-hyd. This wi
 
 # Contact
 
-- Bhanu K, [Email](bhanu.kamapantula@gramener.com), [Twitter](twitter.com/thoughtisdead)
-- Parashar S, [Email](parashar.sangle@gramener.com)
+- Bhanu K - [Email](bhanu.kamapantula@gramener.com), [Twitter](twitter.com/thoughtisdead)
+- Parashar S - [Email](parashar.sangle@gramener.com)
