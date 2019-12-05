@@ -71,6 +71,13 @@ url:
     kwargs:
       path: $YAMLPATH/snippets/upload.html
       template: true
+  
+  workshop/snippets/curated:
+    pattern: /$YAMLURL/snippets/curated
+    handler: FileHandler
+    kwargs:
+      path: $YAMLPATH/snippets/curated.html
+      template: true
 
 # Gramex init configurations for application
 # ----------------------------------------------------------------------------

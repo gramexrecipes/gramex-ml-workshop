@@ -19,19 +19,23 @@ every `HTML` file below can be rendered by requesting for
 
 http://localhost:9988/snippets/base or
 
-http://localhost:9988/snippets/upload or 
+http://localhost:9988/snippets/upload_file or 
 
 http://localhost:9988/snippets/table or
 
-http://localhost:9988/snippets/output or
+http://localhost:9988/snippets/training or
 
 http://localhost:9988/snippets/final
 
 Each view below builds on top of the previous step.
 
+### Step 0 - curated.html
+
+We'll create this `curated.html` using the steps defined below.
+
 ### Step 1 - base.html
 
-Begin with base.html
+Begin with base.html, you'll a navbar (header for the page).
 
 The corresponding `YAML` routing (found in [gramex.yaml](../gramex.yaml)) is as below:
 
@@ -110,6 +114,8 @@ also note that rendering the table relies on `data` endpoint in [gramex.yaml](..
 Your page should now look like below
 
 ![base + upload + table html](images/table.png)
+
+To know more about g1's formhandler table, visit https://learn.gramener.com/guide/g1/.
 
 ### Step 4 - training.html
 

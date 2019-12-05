@@ -4,24 +4,44 @@
 ## Speakers
 
 - Bhanu K - Bhanu works with healthcare data to create impactful visual stories. His interests are in technology, data, people, society.
-- Parashar S
+- Parashar S - Parashar works as a data science engineer at Gramener. His interests include automation, building test-frameworks and Machine learning.
 
 ## Assumptions
 
-- you've installed Gramex correctly. If you've noticed any errors please share now.
+- you've installed Gramex correctly. If you've noticed any errors please share now. [Installation Instructions](install.md).
 - you're familiar with ML and would like to build web apps easily.
 
 ## What we will do today
 
-- construct a simple app with building blocks (HTML, JS, python).
+- construct a simple app with building blocks (HTML, JS, python, gramex, little tornado).
 - create an app that trains, tests datasets and review the output.
 - we won't be reviewing ML algorithms or scikit-learn.
 
+This is how the application would at the end of it:
+
+![final page](snippets/images/final.png)
+
 ## What it needs
 
-Make sure you install the [necessary software](prerequisites.md) before you arrive at the workshop.
+1) Make sure you install the [necessary software](install.md) before you arrive at the workshop.
 
-Read: [prerequisites.md](prerequisites.md)
+2) Use [Visual Studio Code](https://code.visualstudio.com/), add `` as a workspace.
+
+3) Optionally, you can add our VSCode extension [Gramex Snippets](https://marketplace.visualstudio.com/items?itemName=gramener.gramexsnippets). Include the below lines in `settings.json` in VSCode for suggestions to work.
+
+```json
+{
+  "editor.tabCompletion": "on",
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "editor.snippetSuggestions": "inline",
+}
+```
+
+Read: [installation instructions](install.md).
 
 ## Outline
 
@@ -42,7 +62,7 @@ The workshop begins at 11:30 am.
 - execute arbitrary python
 - auth support: database-based, active directory-based, google, social (twitter, facebook)
 - capture screenshots
-- configure smart email alerts
+- configure smart email alerts and a lot more...
 
 most of it via `YAML` configuration.
 
@@ -59,8 +79,6 @@ url:
     handler: FormHandler
     kwargs:
       url: $YAMLPATH/iris.csv
-      default:
-        _limit: 5
 ```
 
 Most handlers support `kwargs` section to control data from server-side.
@@ -101,6 +119,7 @@ Gramex is built on top of `tornado` which uses `RequestHandler` for everything a
 - `FileHandler`
 - `CaptureHandler`
 - `Scheduler`
+- read more at https://learn.gramener.com/guide/
 
 # Snippets
 
@@ -113,7 +132,7 @@ Head to [snippets](snippets) directory to begin the application building.
 - Check Speech AI sample application built on Gramex https://ai.gramener.com/speechai/
 - Gramex documentation - https://learn.gramener.com/guide/
 
-Please share your feedback with us here LINK. This will take 2 min of yours.
+Please share your feedback with us here http://bit.ly/gramex-pyconf-hyd. This will take 2 min of yours.
 
 # Contact
 
