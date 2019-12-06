@@ -83,4 +83,4 @@ docker container ls           # list instances
 docker rm gramex-instance     # delete instance
 ```
 
-In case of any problems or questions, send an email to jaidev.deshpande@gramener.com
+In case of any problems or questions, send an email to `jaidev.deshpande@gramener.com`.

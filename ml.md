@@ -114,7 +114,7 @@ def _plot_decision_tree(clf, dfx):
 
 def _make_chart(clf, df):
     if isinstance(clf, (LinearClassifierMixin, nb.MultinomialNB)):
-        with open('linear_model.json', 'r', encoding='utf8') as fout:
+        with open('chart_spec.json', 'r', encoding='utf8') as fout:
             spec = json.load(fout)
         cdf = pd.DataFrame(clf.coef_, columns=df.columns)
         cdf['class'] = clf.classes_
@@ -129,44 +129,6 @@ def _make_chart(clf, df):
         return True
     return False
 
-```
-
-- Write html code in `index.html` and call train data from front-end
-
-```html
-<div class="divider"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-6">
-        <h3>Tweak the parameters</h3>
-        <div class="container py-4 d-none" id="mlSection">
-          <div class="form-group row">
-            <label for="targetCol" class="col-sm-4 col-form-label">Select Target Column:</label>
-            <div class="col-sm-8">
-              <div id="targetCol"></div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="testSize" class="col-sm-4 col-form-label">Select Test Size:</label>
-            <div class="col-8">
-              <input id="testSize" type="range" class="custom-range" name="testSize" value="33">
-            </div>
-            <div id="testSizeDisplay" class="col-sm"><p>33 %</p></div>
-          </div>
-          <div class="form-group row">
-            <label for="algorithm" class="col-sm-4 col-form-label">Select Algorithm:</label>
-            <div class="col-sm-8">
-              <div id="algorithm"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <button class="btn btn-primary" id="train">Train</button>
-          </div>
-        </div>
-      </div>
-      <div id="report" class="col-6"></div>
-    </div>
-  </div>
 ```
 
 - Create `report.html` file and add scaffolding
@@ -345,7 +307,7 @@ $('#train').on('click', () => {
 ```
 
 # To add interactive charts use [vega](https://vega.github.io/vega/)
-create `linear_model.json` add below vega code.
+create `chart_spec.json` add below vega code.
 
 ```json
 {
@@ -377,7 +339,6 @@ create `linear_model.json` add below vega code.
   }
 }
 ```
-
 
 In case of any query feel free to reach out.
 - Jaidev Deshpande <jaidev.deshpande@gramener.com>
