@@ -29,7 +29,7 @@
     <div class="card-deck">
       <div class="card">
         <div class="card-body">
-          <form action="../upload_snippet" method="POST" enctype="multipart/form-data">
+          <form action="upload_snippet" method="POST" enctype="multipart/form-data">
             <input name="file" type="file">
             <button type="buton" id="file_upload_btn">Submit</button>
             <input type="hidden" name="_xsrf" value="{{ handler.xsrf_token }}">

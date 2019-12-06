@@ -71,9 +71,15 @@ def _make_chart(clf, df):
 
 
 def train_method(handler):
+    """
+    Train, test dataset.
+    
+    Note that `handler.get_argument('arg')` is used to read URL parameters
+    """
     url = handler.get_argument('url')
     url = op.join(YAMLPATH, url)
     df = cache.open(url)
+    # model, testSize and targetCol are part of the arguments sent via `train_method` AJAX call.
     clf = locate(handler.get_argument('model'))()
     test_size = float(handler.get_argument('testSize')) / 100
     target_col = handler.get_argument('targetCol')
@@ -82,12 +88,13 @@ def train_method(handler):
     dfx = df[[c for c in df if c != target_col]]
     x, y = dfx.values, dfy.values
 
+    # train/test data split, fit to classifier and determine accuracy
     xtrain, xtest, ytrain, ytest = train_test_split(
             x, y, test_size=test_size, shuffle=True, stratify=y)
-
     clf.fit(xtrain, ytrain)
     score = clf.score(xtest, ytest)
 
+    # output is rendered to report.html
     with open(op.join(YAMLPATH, 'report.html'), 'r', encoding='utf8') as fout:
         tmpl = Template(fout.read())
     viz = _make_chart(clf, dfx)

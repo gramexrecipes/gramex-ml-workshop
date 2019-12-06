@@ -164,7 +164,88 @@ Note the attributes that change he selections in `Tweak the parameters` section.
 | Select test size      | Dataset % as test size, 0 to 100% | Change it to see how model accuracy varies! |
 | Select algorithm | List of features from data, algorithm to train with |Note that model accuracy is applicable to linear models alone, for the rest it's not implemented for this workshop. |
 
+#### Target selection
+To populate the values in `Select Algorithm` select option, refer to the variable `model_list` in `js/script.js`.
 
+#### Algorithm selection
+To populate the values in `Select Algorithm` select option, refer to the variable `model_list` in `js/script.js`.
+
+```js
+{
+  'label': 'Logistic Regression',
+  'value': 'sklearn.linear_model.LogisticRegression'
+}
+```
+where `label` is what is shown in the `select` option while `sklearn.linear_model.LogisticRegression` is its value.
+
+#### Training 
+
+![training submission](images/train.png)
+
+Clicking on `Train` button makes an `AJAX` request. If you aren't familiar with it, that's fine. It's a mechanism to retrieve information from server asynchronously.
+
+```js
+function train() {
+  $.ajax({
+    url: 'train_method',    // train_method is a route in gramex.yaml
+    type: 'post',           // makes a POST request
+    data: {
+      'model': modelName,
+      'url': 'upload_data/data.csv',
+      'targetCol': targetCol,
+      'testSize': testSize,
+    },
+    success: (response_data) => {
+      // response is rendered in `report.html` that has div#report element
+      $('#report').html(response_data)
+    }
+  })
+}
+```
+
+observe the `train_method` route defined in `url` attribute in `$.ajax` above defined in the YAML configuration below...
+
+that's how requests are routed from front-end to back-end.
+
+```yaml
+# snippet for `train_method` endpoint in gramex.yaml
+modelhandler:
+  pattern: /$YAMLURL/train_method
+  handler: FunctionHandler
+  kwargs:
+    # runs train_method() function in modelhandler_demo.py
+    function: modelhandler_demo.train_method
+```
+
+The key aspects of the back-end (`python`) are:
+
+- URL parameter retrieval
+
+```py
+url = handler.get_argument('url')
+clf = locate(handler.get_argument('model'))()
+test_size = float(handler.get_argument('testSize')) / 100
+target_col = handler.get_argument('targetCol')
+```
+
+- training/test data split, fit to classifier and determine accuracy
+
+```py
+# train/test data split, fit to classifier and determine accuracy
+xtrain, xtest, ytrain, ytest = train_test_split(
+        x, y, test_size=test_size, shuffle=True, stratify=y)
+clf.fit(xtrain, ytrain)
+score = clf.score(xtest, ytest)
+```
+
+- send the output to front-end (`JavaScript`)
+
+```py
+with open(op.join(YAMLPATH, 'report.html'), 'r', encoding='utf8') as fout:
+    tmpl = Template(fout.read())
+viz = _make_chart(clf, dfx)
+return tmpl.generate(score=score, model=clf, spec=viz)
+```
 
 ## Final output
 
