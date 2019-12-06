@@ -71,6 +71,15 @@ url:
     kwargs:
       path: $YAMLPATH/snippets/upload.html
       template: true
+
+  uploadhandler/snippets:
+    pattern: /$YAMLURL/upload_snippet
+    handler: UploadHandler
+    kwargs:
+      if_exists: overwrite            # Overwrite the original without backup
+      path: $YAMLPATH/upload_data
+      # redirect:
+      #   url: /$YAMLURL/snippets/upload_file
   
   workshop/snippets/curated:
     pattern: /$YAMLURL/snippets/curated

@@ -27,7 +27,14 @@ http://localhost:9988/snippets/training or
 
 http://localhost:9988/snippets/final
 
-Each view below builds on top of the previous step.
+Each view below builds on top of the previous step. Table of contents is as follows:
+
+- [Step 0 - curated.html](#step-0---curatedhtml)
+- [Step 1 - base.html](#step-1---basehtml)
+- [Step 2 - upload.html](#step-1---uploadhtml)
+- [Step 3 - base.html](#step-1---basehtml)
+- [Step 4 - table.html](#step-1---tablehtml)
+- [Step 5 - training.html](#step-1---traininghtml)
 
 ### Step 0 - curated.html
 
@@ -101,7 +108,7 @@ The corresponding `YAML` routing (found in [gramex.yaml](../gramex.yaml)) is as 
       template: true
 ```
 
-also note that rendering the table relies on `data` endpoint in [gramex.yaml](../gramex.yaml)):
+also note that rendering the table relies on `data` endpoint in [gramex.yaml](../gramex.yaml):
 
 ```yaml
   formhandler:
@@ -127,10 +134,11 @@ Your page should now look like below
 
 Let's now discuss how the application will function interactively (on user input). User can:
 
-- upload a file
+- [upload a file](#file-upload)
   - upon which table is updated
   - `Tweak the parameters` section is updated
-- Train the model
+  - and model can be trained
+- [Train the model](#train-the-model)
 
 ### File upload
 
@@ -138,16 +146,25 @@ Gramex handles any file uploads via `UploadHandler` with several out-of-the-box 
 
 ```yaml
   uploadhandler:
-    pattern: /$YAMLURL/upload
+    pattern: /$YAMLURL/snippets/upload_file
     handler: UploadHandler
     kwargs:
       if_exists: overwrite            # Overwrite the original without backup
       path: $YAMLPATH/upload_data
-      methods: get                    # Upload listing
-      redirect: /$YAMLURL/            # redirect to url
+  # this will show the output post file uploading
 ```
 
 ### Train the model
+
+Note the attributes that change he selections in `Tweak the parameters` section.
+
+| Type | Values | Notes |
+| ---- | ------ | ----- |
+| Select target columns | List of features from data | Categorical variables will be used for the workshop. |
+| Select test size      | Dataset % as test size, 0 to 100% | Change it to see how model accuracy varies! |
+| Select algorithm | List of features from data, algorithm to train with |Note that model accuracy is applicable to linear models alone, for the rest it's not implemented for this workshop. |
+
+
 
 ## Final output
 
