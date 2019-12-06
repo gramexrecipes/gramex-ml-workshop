@@ -86,26 +86,27 @@ $('.formhandler').on('load', function (data) {
 })
 
 $('#algorithm').on('change', () => {
-    modelName = url.searchKey.model
+    modelName = $('#algorithm select').val()
     $('#modelchart').html('')
   })
   .on('load', () => {
-    modelName = 'sklearn.linear_model.LogisticRegression'
+    modelName = url.searchKey.model || 'sklearn.linear_model.LogisticRegression'
     url.update({
       model: modelName
     })
+    $('#algorithm select').val(modelName)
   })
   .dropdown(model_list)
 
 function render_target_cols(trainCols) {
   $('#targetCol').on('change', () => {
-      targetCol = url.searchKey.targetCol
-    })
-    .dropdown({
-      data: trainCols.reverse(),
-      target: 'pushState',
-      key: 'targetCol'
-    })
+    targetCol = url.searchKey.targetCol
+  })
+  .dropdown({
+    data: trainCols.reverse(),
+    target: 'pushState',
+    key: 'targetCol'
+  })
 }
 
 function train() {
