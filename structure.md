@@ -16,7 +16,7 @@ The workshop begins at 11:30 am.
 | Q&A, Support | Q&A session, help the participants | 10 mins, 12:40 to 12:50 pm |
 | [Possibilities](#possibilities) | Other ML applications, Email alerts, Charts, Screenshots, Admin module | 10 mins, 12:50 to 1 pm |
 
-## Speakers
+## Workshop organizers
 
 - Bhanu K - Bhanu works with healthcare data to create impactful visual stories. His interests are in technology, data, people, society and how these interact with one another.
 - Parashar S - Parashar works as a data science engineer at Gramener. His interests include automation, building test-frameworks and Machine learning.

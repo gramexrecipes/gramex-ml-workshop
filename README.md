@@ -33,7 +33,7 @@ Files for building the application:
 
 Files for the workshop:
 
-- `structure.md` - 
+- `structure.md` - workshop introduction
 - `snippets`     - code snippets to build application
 - `final.html`   - compare your final application against this
 
