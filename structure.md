@@ -1,14 +1,25 @@
 
 # Building ML applications with Gramex
 
+## Outline
+
+The workshop begins at 11:30 am.
+
+| Section | Content | Duration |
+| ------- | ------- | -------- |
+| [Introduction](#introduction) | Gramex intro, controlling data with URL params | 20 mins, 11:30 to 11:50 am |
+| [Build an ML app](#snippets) | Use snippets and build the application step-by-step | 50 mins, 11:50 to 12:40 pm |
+| QA, Support | QA session, help the participants | 10 mins, 12:40 to 12:50 pm |
+| [Possibilities](#possibilities) | Other ML applications, Email alerts, Charts, Screenshots, Admin module | 10 mins, 12:50 to 1 pm |
+
 ## Speakers
 
-- Bhanu K - Bhanu works with healthcare data to create impactful visual stories. His interests are in technology, data, people, society.
+- Bhanu K - Bhanu works with healthcare data to create impactful visual stories. His interests are in technology, data, people, society and how these interact with one another.
 - Parashar S - Parashar works as a data science engineer at Gramener. His interests include automation, building test-frameworks and Machine learning.
 
 ## Assumptions
 
-- you've installed Gramex correctly. If you've noticed any errors please share now.
+- you've [installed](install.md) Gramex correctly. If you've noticed any errors please share now.
 - you're familiar with ML and would like to build web apps easily.
 
 ## What we will do today
@@ -38,21 +49,9 @@ This is how the application would at the end of it:
     "other": true,
     "comments": false,
     "strings": true
-  },
-  "editor.snippetSuggestions": "inline",
+  }
 }
 ```
-
-## Outline
-
-The workshop begins at 11:30 am.
-
-| Section | Content | Duration |
-| ------- | ------- | -------- |
-| [Introduction](#introduction) | Gramex intro, controlling data with URL params | 20 mins, 11:30 to 11:50 am |
-| [Build an ML app](#snippets) | Content | 50 mins, 11:50 to 12:40 pm |
-| QA, Support | QA session, help the participants | 10 mins, 12:40 to 12:50 pm |
-| Possibilities | Other ML applications, Email alerts, Charts, Screenshots, Admin module | 10 mins, 12:50 to 1 pm |
 
 # Introduction
 
@@ -68,17 +67,17 @@ most of it via `YAML` configuration.
 
 ## URLs
 
-Consider a dataset that you'd like to explore for exploratory data analysis.
+Consider a dataset that you'd like to explore for exploratory data analysis, we'll use the model `iris` [dataset](https://gist.github.com/curran/a08a1080b88344b0c8a7#file-readme-md).
 
-Before that you'd like to see the composition of the file. You can expose it using `FormHandler`
+Before that you'd like to see the composition of the file. You can explore it using `FormHandler`:
 
 ```YAML
 url:
   data-endpoint:
-    pattern: /$YAMLURL/data
+    pattern: /$YAMLURL/iris
     handler: FormHandler
     kwargs:
-      url: $YAMLPATH/iris.csv
+      url: $YAMLPATH/datasets/iris.csv
 ```
 
 Most handlers support `kwargs` section to control data from server-side.
@@ -93,7 +92,7 @@ formats: JSON, CSV, HTML
 ```
 
 ### URL sections
-Multiple URL sections can be 
+Multiple URL sections can be defined for different endpoints.
 
 ### Arbitrary python
 Arbitrary `python` code can be run using `FunctionHandler`.
@@ -123,7 +122,7 @@ Gramex is built on top of `tornado` which uses `RequestHandler` for everything a
 
 # Snippets
 
-Head to [snippets](snippets) directory to begin the application building.
+Head to [snippets](snippets/) directory to begin the application building.
 
 # Possibilities
 
@@ -136,5 +135,5 @@ Please share your feedback with us here http://bit.ly/gramex-pyconf-hyd. This wi
 
 # Contact
 
-- Bhanu K - [Email](bhanu.kamapantula@gramener.com), [Twitter](twitter.com/thoughtisdead)
+- Bhanu K - [Email](bhanu.kamapantula@gramener.com) | [Twitter](twitter.com/thoughtisdead)
 - Parashar S - [Email](parashar.sangle@gramener.com)

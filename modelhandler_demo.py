@@ -54,7 +54,7 @@ def _plot_decision_tree(clf, dfx):
 
 def _make_chart(clf, df):
     if isinstance(clf, (LinearClassifierMixin, nb.MultinomialNB)):
-        with open(op.join(YAMLPATH, 'linear_model.json'), 'r', encoding='utf8') as fout:
+        with open(op.join(YAMLPATH, 'chart_spec.json'), 'r', encoding='utf8') as fout:
             spec = json.load(fout)
         cdf = pd.DataFrame(clf.coef_, columns=df.columns)
         cdf['class'] = clf.classes_
