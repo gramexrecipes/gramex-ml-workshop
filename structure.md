@@ -135,7 +135,7 @@ Head to [snippets](snippets/) directory to begin the application building.
 - Check Speech AI sample application built on Gramex https://ai.gramener.com/speechai/
 - Gramex documentation - https://learn.gramener.com/guide/
 
-Please share your feedback with us here http://bit.ly/gramex-pyconf-hyd. This will take 2 min of yours.
+Please share your feedback with us here http://bit.ly/gramex-pyconf-hyd. This will take only a couple of minutes.
 
 # Contact
 
