@@ -1,6 +1,10 @@
 
 # Building ML applications with Gramex
 
+## Objective
+
+We'll build a ML Classification application with Gramex.
+
 ## Outline
 
 The workshop begins at 11:30 am.
@@ -8,8 +12,8 @@ The workshop begins at 11:30 am.
 | Section | Content | Duration |
 | ------- | ------- | -------- |
 | [Introduction](#introduction) | Gramex intro, controlling data with URL params | 20 mins, 11:30 to 11:50 am |
-| [Build an ML app](#snippets) | Use snippets and build the application step-by-step | 50 mins, 11:50 to 12:40 pm |
-| QA, Support | QA session, help the participants | 10 mins, 12:40 to 12:50 pm |
+| [Build an ML app](#snippets) | Use [snippets](snippets/) and build the application step-by-step | 50 mins, 11:50 to 12:40 pm |
+| Q&A, Support | Q&A session, help the participants | 10 mins, 12:40 to 12:50 pm |
 | [Possibilities](#possibilities) | Other ML applications, Email alerts, Charts, Screenshots, Admin module | 10 mins, 12:50 to 1 pm |
 
 ## Speakers
