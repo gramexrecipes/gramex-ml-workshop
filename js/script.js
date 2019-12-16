@@ -3,7 +3,7 @@ var trainCols = []
 var testSize = "33"
 var targetCol = null
 var url = g1.url.parse(location.href)
-const modelist = {
+const model_list = {
   data: [{
       'label': 'Logistic Regression',
       'value': 'sklearn.linear_model.LogisticRegression'
@@ -80,41 +80,39 @@ $('.formhandler').on('load', function (data) {
     return !c.hide
   })
   trainCols = _.map(trainCols, 'name');
-  render_tc_dd(trainCols);
+  render_target_cols(trainCols);
 }).formhandler({
   'pageSize': 5
 })
 
 $('#algorithm').on('change', () => {
-    modelName = url.searchKey.model
+    modelName = $('#algorithm select').val()
     $('#modelchart').html('')
   })
   .on('load', () => {
-    modelName = 'sklearn.linear_model.LogisticRegression'
+    modelName = url.searchKey.model || 'sklearn.linear_model.LogisticRegression'
     url.update({
       model: modelName
     })
+    $('#algorithm select').val(modelName)
   })
-  .dropdown(modelist)
+  .dropdown(model_list)
 
-function render_tc_dd(trainCols) {
+function render_target_cols(trainCols) {
   $('#targetCol').on('change', () => {
-      targetCol = url.searchKey.targetCol
-    })
-    .dropdown({
-      data: trainCols.reverse(),
-      target: 'pushState',
-      key: 'targetCol'
-    })
+    targetCol = url.searchKey.targetCol
+  })
+  .dropdown({
+    data: trainCols.reverse(),
+    target: 'pushState',
+    key: 'targetCol'
+  })
 }
 
 function train() {
   $.ajax({
     url: `train_method`,
     type: 'post',
-    headers: {
-      'Model-Retrain': true
-    },
     data: {
       'model': modelName,
       'url': 'upload_data/data.csv',

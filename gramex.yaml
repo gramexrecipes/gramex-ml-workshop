@@ -3,6 +3,7 @@
 # App Configurations
 # Configurations for app: modelhandler-demo
 # ----------------------------------------------------------------------------
+
 url:
   modelhandler-demo-home:
     pattern: /$YAMLURL/
@@ -20,7 +21,6 @@ url:
       methods: get                    # Upload listing
       redirect: /$YAMLURL/            # redirect to url
 
-  # formHandler snippet
   formhandler:
     pattern: /$YAMLURL/data
     handler: FormHandler
@@ -32,10 +32,13 @@ url:
     handler: FunctionHandler
     kwargs:
       function: modelhandler_demo.train_method
-      xsrf_cookies: false
-      headers:
-        Content-Type: text/plain
-        Cache-Control: no-store
+
+  workshop/final:
+    pattern: /$YAMLURL/final
+    handler: FileHandler
+    kwargs:
+      path: $YAMLPATH/final.html
+      template: true
 
 # Gramex init configurations for application
 # ----------------------------------------------------------------------------
@@ -43,13 +46,14 @@ import:
   ui:
     path: $GRAMEXAPPS/ui/gramex.yaml
     YAMLURL: $YAMLURL/ui/
+  app:
+    path: snippets/gramex.yaml
+    namespace: [url, import]
 
 handlers:
   BaseHandler:
     # Custom error pages for this application
     error:
       400: {path: $YAMLPATH/error/400.html}     # Bad request: e.g. URL argument missing
-      401: {path: $YAMLPATH/error/401.html}     # Unauthorized: User not logged in
-      403: {path: $YAMLPATH/error/403.html}     # Forbidden: user does not have access
       404: {path: $YAMLPATH/error/404.html}     # File not found
       500: {path: $YAMLPATH/error/500.html}     # Internal server error
