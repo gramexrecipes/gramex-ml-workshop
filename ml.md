@@ -161,7 +161,7 @@ def _make_chart(clf, df):
     {% autoescape None %}
     {% from tornado.escape import json_decode %}
     var spec = {{ spec }}
-    var view = new vega.View(vega.parse(vl.compile(spec).spec))
+    var view = new vega.View(vega.parse(vegaLite.compile(spec).spec))
         .renderer('svg')
         .initialize('#modelchart')
         .hover()
