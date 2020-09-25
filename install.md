@@ -3,6 +3,7 @@ Installation
 
 In order to install gramex and other material required for the workshop, please follow the following instructions.
 
+For most updated instructions, visit [https://learn.gramener.com/guide/install/](https://learn.gramener.com/guide/install/)
 
 Prerequisites
 -------------
