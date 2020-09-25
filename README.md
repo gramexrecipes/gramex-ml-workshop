@@ -16,10 +16,10 @@ The workshop begins at 11:30 am.
 
 | Section | Content | Duration |
 | ------- | ------- | -------- |
-| [Introduction](#introduction) | Gramex intro, controlling data with URL params | 20 mins, 11:30 to 11:50 am |
-| [Build an ML app](#snippets) | Use snippets and build the application step-by-step | 50 mins, 11:50 to 12:40 pm |
+| [Introduction](structure.md#introduction) | Gramex intro, controlling data with URL params | 20 mins, 11:30 to 11:50 am |
+| [Build an ML app](structure.md#snippets) | Use snippets and build the application step-by-step | 50 mins, 11:50 to 12:40 pm |
 | Q&A, Support | Q&A session, help the participants | 10 mins, 12:40 to 12:50 pm |
-| [Possibilities](#possibilities) | Other ML applications, Email alerts, Charts, Screenshots, Admin module | 10 mins, 12:50 to 1 pm |
+| [Possibilities](structure.md#possibilities) | Other ML applications, Email alerts, Charts, Screenshots, Admin module | 10 mins, 12:50 to 1 pm |
 
 ### File structure
 
