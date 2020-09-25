@@ -1,16 +1,16 @@
 Building a ML Classification application with Gramex
 ====================================
 
-## Setup and Installation
+## Step 1 - Setup and Installation
 
 To install gramex and its dependencies, please see the [installation guide](install.md).
 
-## PyConf 2019
+## Step 2 - Overview
 
 - Structure of workshop in [structure.md](structure.md).
 - Workshop walkthrough instructions in [snippets/](snippets/) directory.
 
-### Outline
+### Step 2.1 - Workshop Outline
 
 The workshop begins at 11:30 am.
 
@@ -21,7 +21,7 @@ The workshop begins at 11:30 am.
 | Q&A, Support | Q&A session, help the participants | 10 mins, 12:40 to 12:50 pm |
 | [Possibilities](structure.md#possibilities) | Other ML applications, Email alerts, Charts, Screenshots, Admin module | 10 mins, 12:50 to 1 pm |
 
-### File structure
+### Step 2.2 - Overview of file structure
 
 Files for building the application:
 
