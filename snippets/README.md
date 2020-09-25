@@ -11,6 +11,7 @@ Snippets directory provides minimal utilites to build a simple web page for the 
   - upload.html
   - table.html
   - training.html
+  - curated.html
   - README.md
 
 ## Build your application
@@ -25,7 +26,7 @@ http://localhost:9988/snippets/table or
 
 http://localhost:9988/snippets/training or
 
-http://localhost:9988/snippets/final
+http://localhost:9988/snippets/curated
 
 Each view below builds on top of the previous step. Table of contents is as follows:
 
