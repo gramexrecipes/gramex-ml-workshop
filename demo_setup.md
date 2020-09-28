@@ -5,9 +5,13 @@ This document assumes that you have finished the installation instructions provi
 
 ## Starting the application
 
+To start a `gramex` application, run `gramex` in a terminal or command prompt (or similar):
+
 ```bash
 $ gramex
 ```
+
+This will run the application in the default port of `9988`.
 
 in the project folder. Visit [http://localhost:9988](http://localhost:9988) in your browser.
 You should now see a web page which looks similar to the following:
