@@ -16,11 +16,6 @@ The workshop begins at 11:30 am.
 | Q&A, Support | Q&A session, help the participants | 10 mins, 12:40 to 12:50 pm |
 | [Possibilities](#possibilities) | Other ML applications, Email alerts, Charts, Screenshots, Admin module | 10 mins, 12:50 to 1 pm |
 
-## Workshop organizers
-
-- Bhanu K - Bhanu works with healthcare data to create impactful visual stories. His interests are in technology, data, people, society and how these interact with one another.
-- Parashar S - Parashar works as a data science engineer at Gramener. His interests include automation, building test-frameworks and Machine learning.
-
 ## Assumptions
 
 - you've [installed](install.md) Gramex correctly. If you've noticed any errors please share now.
@@ -59,7 +54,7 @@ This is how the application would at the end of it:
 
 # Introduction
 
-[Gramex](https://learn.gramener.com/guide/) is a FOSS web and data server. One can do the below with minimal setup
+[Gramex](https://gramener.com/gramex/guide/) is a FOSS web and data server. One can do the below with minimal setup
 
 - fetch, edit, delete data records
 - execute arbitrary python
@@ -89,7 +84,7 @@ Most handlers support `kwargs` section to control data from server-side.
 ### Notes
 
 - We've limited the number of rows to `5` irrespective of how many rows end user requests.
-- `$YAMLPATH` and `$YAMLURL` are Gramex predefined variables. Read more in the [documentation](https://learn.gramener.com/guide/config/#predefined-variables).
+- `$YAMLPATH` and `$YAMLURL` are Gramex predefined variables. Read more in the [documentation](https://gramener.com/gramex/guide/config/#predefined-variables).
 
 ```
 formats: JSON, CSV, HTML
@@ -122,7 +117,7 @@ Gramex is built on top of `tornado` which uses `RequestHandler` for everything a
 - `FileHandler`
 - `CaptureHandler`
 - `Scheduler`
-- read more at https://learn.gramener.com/guide/
+- read more at https://gramener.com/gramex/guide/
 
 # Snippets
 
@@ -133,11 +128,9 @@ Head to [snippets](snippets/) directory to begin the application building.
 - Visit [Cluster](https://gramener.com/cluster) to explore all clustering algorithms in `scikit-learn`.
 - Visit our [AI Labs](https://gramener.com/ailabs/)
 - Check Speech AI sample application built on Gramex https://ai.gramener.com/speechai/
-- Gramex documentation - https://learn.gramener.com/guide/
-
-Please share your feedback with us here http://bit.ly/gramex-pyconf-hyd. This will take only a couple of minutes.
+- Gramex documentation - https://gramener.com/gramex/guide/
 
 # Contact
 
-- Bhanu K - [Email](bhanu.kamapantula@gramener.com) | [Twitter](twitter.com/thoughtisdead)
-- Parashar S - [Email](parashar.sangle@gramener.com)
+- Bhanu K - [Email](bhanu.kamapantula@gramener.com)
+- Jaidev D - [Email](jaidev.deshpande@gramener.com)
