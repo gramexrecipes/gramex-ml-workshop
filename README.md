@@ -42,6 +42,15 @@ Files for the workshop:
 * To set up and use this application locally, see the [installation instructions](demo_setup.md).
 * To learn how this app was built, see the [tutorial](tutorial.md)
 
+# For workshop organizers
+
+Please review the setup instructions: https://github.com/bkamapantula/gramex-ml-workshop/blob/master/demo_setup.md
+
+## Objective of the workshop
+
+- Introduce Gramex
+- Build a simple application that classifies species of flowers
+
 # Contributors
 
 Content for the workshops is prepared by below contributors:
