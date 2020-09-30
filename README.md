@@ -46,10 +46,15 @@ Files for the workshop:
 
 Please review the setup instructions: https://github.com/bkamapantula/gramex-ml-workshop/blob/master/demo_setup.md
 
+## Audience
+
+- For users new to Gramex 
+- Users are expected to know programming (HTML, JavaScript, Python)
+
 ## Objective of the workshop
 
-- Introduce Gramex
-- Build a simple application that classifies species of flowers
+- Introduce Gramex, show interactions (formhandler, formhandler table)
+- Build a simple machine learning classification application
 
 # Contributors
 
