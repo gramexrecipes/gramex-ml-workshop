@@ -46,6 +46,15 @@ Files for the workshop:
 
 Please review the instructions on how this workshop content is put together: https://github.com/bkamapantula/gramex-ml-workshop/blob/master/demo_setup.md
 
+## What to say
+
+- How Gramex can help build custom applications
+  - interactions
+  - charts
+- How to use Gramex to build ML as a service
+
+In the workshop, participants will learn how to create API endpoints for data and ML services.
+
 # For workshop participants
 
 ## Audience and prerequisites
