@@ -44,11 +44,6 @@ Files for the workshop:
 - `snippets`     - code snippets to build application
 - `final.html`   - compare your final application against this
 
-## Run locally
-
-* To set up and use this application locally, see the [installation instructions](demo_setup.md).
-* To learn how this app was built, see the [tutorial](tutorial.md)
-
 # For workshop organizers
 
 Please review the instructions on how this workshop content is put together: https://github.com/bkamapantula/gramex-ml-workshop/blob/master/demo_setup.md
@@ -62,6 +57,11 @@ Please review the instructions on how this workshop content is put together: htt
 - Use [tutorial](https://github.com/gramexrecipes/gramex-ml-workshop/blob/master/tutorial.md) to introduce Gramex
 
 In the workshop, participants will learn how to create API endpoints for data and ML services.
+
+## Run locally
+
+* To set up and use this application locally, see the [installation instructions](demo_setup.md).
+* To learn how this app was built, see the [tutorial](tutorial.md)
 
 # For workshop participants
 
