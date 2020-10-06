@@ -64,7 +64,7 @@ Participants will get familiar with few [Gramex](https://learn.gramener.com/guid
 Participants will get familiar with different utilities in Gramex to
 
 - handle data (using [FormHandler](https://learn.gramener.com/guide/formhandler/))
-- run arbitrary functions (using [FunctionHandler](https://learn.gramener.com/guide/formhandler/))
+- run arbitrary functions (using [FunctionHandler](https://learn.gramener.com/guide/functionhandler/))
 - customize components (using [UIComponents](https://learn.gramener.com/guide/uicomponents/))
   - add a utility to upload files (using [UploadHandler](https://learn.gramener.com/guide/uploadhandler/))
   - add an interactive table (using [g1 FormHandler](https://learn.gramener.com/guide/g1/formhandler))
