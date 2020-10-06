@@ -15,7 +15,7 @@ conda install -y -c conda-forge -c gramener gramex  # Install Gramex
 
 ## If you don't have anaconda, use pip
 
-Install [Anaconda3-2020.02][anaconda]. (Gramex does not yet work with Python 3.8. So avoid later versions). Here are downloads for:
+Install [Anaconda3-2020.02][https://repo.anaconda.com/archive/]. (Gramex does not yet work with Python 3.8. So avoid later versions). Here are downloads for:
 
  - [Windows-x86_64](https://repo.anaconda.com/archive/Anaconda3-2020.02-Windows-x86_64.exe)
  - [Windows-x86](https://repo.anaconda.com/archive/Anaconda2-2019.10-Windows-x86.exe)
@@ -33,4 +33,4 @@ gramex setup --all      # Set up UI components and built-in apps
 
 You could also install Gramex via [docker](https://learn.gramener.com/guide/install/#docker-install) or in [offline](https://learn.gramener.com/guide/install/#offline-install) mode.
 
-In case of any problems or questions, send an email to `jaidev.deshpande@gramener.com`.
+In case of any problems or questions, send an email to `cto@gramener.com`; or raise an issue [here](https://github.com/gramener/gramex/issues).
