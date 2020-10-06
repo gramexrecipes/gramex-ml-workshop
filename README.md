@@ -44,7 +44,9 @@ Files for the workshop:
 
 # For workshop organizers
 
-Please review the setup instructions: https://github.com/bkamapantula/gramex-ml-workshop/blob/master/demo_setup.md
+Please review the instructions on how this workshop content is put together: https://github.com/bkamapantula/gramex-ml-workshop/blob/master/demo_setup.md
+
+# For workshop participants
 
 ## Audience and prerequisites
 
