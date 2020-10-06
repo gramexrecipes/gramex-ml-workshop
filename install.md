@@ -5,6 +5,28 @@ In order to install gramex and other material required for the workshop, please 
 
 For most updated instructions, visit [https://gramener.com/gramex/guide/install/](https://gramener.com/gramex/guide/install/)
 
+# Cloud installation
+
+## Visit Gramex IDE website
+
+Gramex IDE allows you to clone existing repositories or create new ones. Link: https://gramex.gramener.com/
+
+Authenticate using GitHub.
+
+## Clone this repository
+
+Clone this workshop [repository](https://github.com/gramexrecipes/gramex-ml-workshop/)
+
+![clone repository URL](assets/ide-clone-repo.png)
+
+## View details
+
+View details of the cloned repository on the right side
+
+![cloned repository](assets/ide-cloned.png)
+
+# Local installation
+
 ## If you have anaconda
 
 ```bash
