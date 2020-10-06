@@ -40,9 +40,10 @@ Please review the instructions on how this workshop content is put together at [
 
 In the workshop, participants will learn how to create API endpoints for data and ML services.
 
-## Run locally
+## Run locally or on cloud
 
 * To set up and use this application locally, see the [demo_setup.md](demo_setup.md) file.
+* To set up on cloud, read [install.md](https://github.com/gramexrecipes/gramex-ml-workshop/blob/master/install.md#cloud-installation) file.
 * To learn how this app was built, see the [tutorial](tutorial.md).
 
 # For workshop participants
