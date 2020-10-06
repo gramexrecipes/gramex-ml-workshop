@@ -60,8 +60,8 @@ In the workshop, participants will learn how to create API endpoints for data an
 
 ## Run locally
 
-* To set up and use this application locally, see the [installation instructions](demo_setup.md).
-* To learn how this app was built, see the [tutorial](tutorial.md)
+* To set up and use this application locally, see the [demo_setup.md](demo_setup.md) file.
+* To learn how this app was built, see the [tutorial](tutorial.md).
 
 # For workshop participants
 
