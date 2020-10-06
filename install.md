@@ -15,15 +15,17 @@ Authenticate using GitHub.
 
 ## Clone this repository
 
-Clone this workshop [repository](https://github.com/gramexrecipes/gramex-ml-workshop/)
+Clone this workshop [repository](https://github.com/gramexrecipes/gramex-ml-workshop/) by pasting the link in the text box.
 
 ![clone repository URL](assets/ide-clone-repo.png)
 
 ## View details
 
-View details of the cloned repository on the right side
+View details of the cloned repository on the right side.
 
 ![cloned repository](assets/ide-cloned.png)
+
+You can edit the content using the IDE in browser or initialize the application or view the logs.
 
 # Local installation
 
