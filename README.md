@@ -17,7 +17,7 @@ To install gramex and its dependencies, please see the [installation guide](inst
 - Structure of workshop in [structure.md](structure.md).
 - Workshop walkthrough instructions in [snippets/](snippets/) directory.
 
-### Step 2.1 - Workshop Outline
+### Workshop Outline
 
 The workshop content is prepared for 1.5 hrs.
 
@@ -28,33 +28,15 @@ The workshop content is prepared for 1.5 hrs.
 | Q&A, Support | Q&A session, help the participants | 10 mins |
 | [Possibilities](structure.md#possibilities) | Other ML applications, Email alerts, Charts, Screenshots, Admin module | 10 mins |
 
-### Step 2.2 - Overview of file structure
-
-Files for building the application:
-
-- `gramex.yaml`           - route configuration for endpoints
-- `index.html`            - page that serves the application content
-- `template-navbar.html`  - navbar content
-- `style.css`             - `CSS` rules
-- `report.html`           - classification output renderer
-
-Files for the workshop:
-
-- `structure.md` - workshop introduction
-- `snippets`     - code snippets to build application
-- `final.html`   - compare your final application against this
-
 # For workshop organizers
 
-Please review the instructions on how this workshop content is put together: https://github.com/bkamapantula/gramex-ml-workshop/blob/master/demo_setup.md
+Please review the instructions on how this workshop content is put together at [demo_setup.md](https://github.com/bkamapantula/gramex-ml-workshop/blob/master/demo_setup.md)
 
 ## What to say
 
-- How Gramex can help build custom applications
-  - interactions
-  - charts
+- How Gramex can help build custom applications with interactions, and charts
 - How to use Gramex to build ML as a service
-- Use [tutorial](https://github.com/gramexrecipes/gramex-ml-workshop/blob/master/tutorial.md) to introduce Gramex
+- Continue with content in [structure.md](https://github.com/bkamapantula/gramex-ml-workshop/blob/master/structure.md)
 
 In the workshop, participants will learn how to create API endpoints for data and ML services.
 
