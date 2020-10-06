@@ -7,14 +7,14 @@ We'll build a ML Classification application with Gramex.
 
 ## Outline
 
-The workshop begins at 11:30 am.
+The workshop content is prepared for 1.5 hrs.
 
 | Section | Content | Duration |
 | ------- | ------- | -------- |
-| [Introduction](#introduction) | Gramex intro, controlling data with URL params | 20 mins, 11:30 to 11:50 am |
-| [Build an ML app](#snippets) | Use [snippets](snippets/) and build the application step-by-step | 50 mins, 11:50 to 12:40 pm |
-| Q&A, Support | Q&A session, help the participants | 10 mins, 12:40 to 12:50 pm |
-| [Possibilities](#possibilities) | Other ML applications, Email alerts, Charts, Screenshots, Admin module | 10 mins, 12:50 to 1 pm |
+| [Introduction](#introduction) | Gramex intro, controlling data with URL params | 20 mins |
+| [Build an ML app](#snippets) | Use [snippets](snippets/) and build the application step-by-step | 50 mins |
+| Q&A, Support | Q&A session, help the participants | 10 mins |
+| [Possibilities](#possibilities) | Other ML applications, Email alerts, Charts, SMS, Screenshots, Admin module | 10 mins |
 
 ## Assumptions
 
@@ -27,7 +27,7 @@ The workshop begins at 11:30 am.
 - create an app that trains, tests datasets and review the output.
 - we won't be reviewing ML algorithms or scikit-learn.
 
-This is how the application would at the end of it:
+This is how the application would look at the end of it:
 
 ![final page](snippets/images/final.png)
 
@@ -39,7 +39,7 @@ This is how the application would at the end of it:
 
 3) Use [Visual Studio Code](https://code.visualstudio.com/), add the cloned directory as a workspace.
 
-4) Optionally, you can add our VSCode extension [Gramex Snippets](https://marketplace.visualstudio.com/items?itemName=gramener.gramexsnippets). Include the below lines in `settings.json` in VSCode for suggestions to work.
+4) Optionally, you can add our VSCode extension [Gramex Snippets](https://marketplace.visualstudio.com/items?itemName=gramener.gramexsnippets). Include the below lines in `settings.json` in VSCode for autosuggestions to work.
 
 ```json
 {
