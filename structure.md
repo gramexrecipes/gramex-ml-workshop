@@ -130,6 +130,23 @@ Head to [snippets](snippets/) directory to begin the application building.
 - Check Speech AI sample application built on Gramex https://ai.gramener.com/speechai/
 - Gramex documentation - https://gramener.com/gramex/guide/
 
+
+# Overview of file structure
+
+Files for building the application:
+
+- `gramex.yaml`           - route configuration for endpoints
+- `index.html`            - page that serves the application content
+- `template-navbar.html`  - navbar content
+- `style.css`             - `CSS` rules
+- `report.html`           - classification output renderer
+
+Files for the workshop:
+
+- `structure.md` - workshop introduction
+- `snippets`     - code snippets to build application
+- `final.html`   - compare your final application against this
+
 # Contact
 
 - Bhanu K - [Email](bhanu.kamapantula@gramener.com)
