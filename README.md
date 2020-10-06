@@ -46,15 +46,30 @@ Files for the workshop:
 
 Please review the setup instructions: https://github.com/bkamapantula/gramex-ml-workshop/blob/master/demo_setup.md
 
-## Audience
+## Audience and prerequisites
 
-- For users new to Gramex 
-- Users are expected to know programming (HTML, JavaScript, Python)
+The workshop is intended for developers who are new to Gramex.
+
+### Prerequisites
+
+- Participants are expected to be comfortable with programming (intro-level HTML, JavaScript, Python).
 
 ## Objective of the workshop
 
-- Introduce Gramex, show interactions (formhandler, formhandler table)
-- Build a simple machine learning classification application
+Participants will get familiar with few [Gramex](https://learn.gramener.com/guide/) components: back-end configuration via YAML, writing front-end (`JavaScript`) code.
+
+## At the end of the workshop
+
+Participants will get familiar with different utilities in Gramex to
+
+- handle data (using [FormHandler](https://learn.gramener.com/guide/formhandler/))
+- run arbitrary functions (using [FunctionHandler](https://learn.gramener.com/guide/formhandler/))
+- customize components (using [UIComponents](https://learn.gramener.com/guide/uicomponents/))
+  - add a utility to upload files (using [UploadHandler](https://learn.gramener.com/guide/uploadhandler/))
+  - add an interactive table (using [g1 FormHandler](https://learn.gramener.com/guide/g1/formhandler))
+  - productionize machine learning models
+    - add endpoints to control machine learning classification algorithms in the UI
+    - in the backend, explore how to use `scikit-learn` on-the-fly
 
 # Contributors
 
