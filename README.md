@@ -72,9 +72,9 @@ Participants will get familiar with different utilities in Gramex to
     - add endpoints to control machine learning classification algorithms in the UI
     - in the backend, explore how to use `scikit-learn` on-the-fly
 
-# Contributors
+View the live version of the application at https://9018.gramex.gramener.co/
 
-Content for the workshops is prepared by below contributors:
+# Contributors
 
 - Jaidev Deshpande <jaidev.deshpande@gramener.com>
 - Nivedita Deshmukh <nivedita.deshmukh@gramener.com>
