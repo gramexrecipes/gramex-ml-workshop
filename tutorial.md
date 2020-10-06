@@ -1,22 +1,21 @@
-Building ML Applications with Gramex
-===================================
+# Gramex introduction
 
 ## Setup and Installation
 
-- [Installation guide](https://github.com/kamleshdjango/gramex-ml-workshop/blob/scipy-workshop/installation_guide.md)
+Read the [Installation guide](install.md) for instructions.
 
+## Getting Started with Gramex
 
-Getting Started with Gramex
-============================
+### Gramex as an HTTP Server
 
-# Part 1: Gramex as an HTTP Server
+#### Create boilerplate files
 
-## Gramex init
 Run `gramex init` on your terminal.
 
 ```bash
 $ gramex init
 ```
+
 It generates a simple boilerplate:
 
 - `gramex.yaml`: Gramex configuration
@@ -29,11 +28,12 @@ It generates a simple boilerplate:
                     # `gramex init` will created it with configure your GitLab project to use a Runner.
                     # On any push to your repository, GitLab will look for the .gitlab-ci.yml file and start jobs on Runners according to the contents of the file, for that commit.
 
-Open a terminal, navigate to the project folder and run Gramex as follows:
+Open a terminal or command prompt, navigate to the project folder and run Gramex as follows:
 
 ```bash
 $ gramex
 ```
+
 When gramex starts running, you should be able to see some output logs. When you see the following lines,
 gramex start on default port `9988`
 
@@ -48,9 +48,9 @@ Please visit [`http://localhost:9988`](http://localhost:9988) in your browser. I
 
 ![](assets/screen.png)
 
-## App configuration
+#### App configuration
 
-The `app:` section controls Gramex’s startup. It has these sub-sections.
+The `app:` section controls Gramex's startup. It has these sub-sections.
 
 ```yaml
 app:
@@ -66,9 +66,9 @@ app:
 3. `settings:` holds the Tornado application settings.
 4. `debug:` holds the debug settings
 
-# YAML imports
+#### Import UI Components
 
-One config file can import another. For example:
+One config file (`*.yaml`) can import another. Below configuration imports [UI Components](https://learn.gramener.com/guide/uicomponents/) to serve styling for the web pages:
 
 ```yaml
 import:
@@ -77,7 +77,7 @@ import:
     YAMLURL: $YAMLURL/ui/
 ```
 
-## URL mapping
+#### URL mapping
 In order to provide our app with access to the data, we need to create a URL that sends data to the app.
 The `url:` section maps URLs to content. Here is an example:
 
@@ -106,7 +106,9 @@ The `url:` section is a name - mapping dictionary. The names are just unique ide
     - `FormHandler:` lets you read & write data from files and databases
 - `kwargs:` Keyword arguments to pass to the handler. The arguments varies by handler.
 
-# Part 2: Data Management
+# Routing or mapping endpoints to templates, data and services
+Gramex offers several handlers to serve dynamic templates, files, databases, arbitrary code.
+
 ## FileHandler
 
 `gramex.yaml` uses the `FileHandler` to display files. This folder uses the following configuration:
@@ -122,21 +124,17 @@ appname-home:
 
 `$YAMLURL` is replaced by the current URL’s path (in this case, `/filehandler/`) and `$YAMLPATH` is replaced by the directory of `gramex.yaml`.
 
-### index.html
+Content of`index.html` is as below:
+
+```html
 <h1>Say Hello Gramex.</h1>
+```
 
 ## FunctionHandler
 The `FunctionHandler` runs a function and displays the output. For example, this configuration maps the URL `total` to a FunctionHandler:
 
 ```yaml
 url:
-    # FunctionHandler using yaml
-    hello:                                        # A unique name for this mapping
-        pattern: /$YAMLURL/hello                  # Map the URL /hello
-        handler: FunctionHandler                  # using the build-in FunctionHandler
-        kwargs:                                   # Pass these options to FunctionHandler
-            function: str('Hello Gramex')         # Run the str() function with the argument "Hello Gramex"
-    
     # FunctionHandler with python file
     total:
         pattern: /$YAMLURL/total                    # The "total" URL
@@ -154,6 +152,18 @@ Create python `file app_scrpt.py` in your project directory and write a below fu
 import json
 def total(*items):
     return json.dumps(sum(float(item) for item in items))
+```
+
+or run any Python function as below:
+
+```
+url:
+    # FunctionHandler using yaml
+    hello:                                        # A unique name for this mapping
+        pattern: /$YAMLURL/hello                  # Map the URL /hello
+        handler: FunctionHandler                  # using the build-in FunctionHandler
+        kwargs:                                   # Pass these options to FunctionHandler
+            function: str('Hello Gramex')         # Run the str() function with the argument "Hello Gramex"
 ```
 
 ### URL path arguments
@@ -211,8 +221,7 @@ Any file posted with a name of file is uploaded. Here is a sample HTML form:
 ```
 
 ## FormHandler
-`FormHandler` lets you read & write data from files and databases
-Here is a sample configuration to read data from a CSV file:
+`FormHandler` lets you read & write data from files and databases. Here is a sample configuration to read data from a `CSV` file:
 
 ```yaml
   appname-formhandler:
@@ -230,28 +239,8 @@ You can read from a HTTP or HTTPS URL.
     ext: csv          # Explicitly specify the extension for HTTP(S) urls
 ```
 
-- FormHandler filters
-
-```
-The URL supports operators for filtering rows. The operators can be combined.
-
-?Continent=Europe ► Continent = Europe
-?Continent=Europe&Continent=Asia ► Continent = Europe OR Asia. Multiple values are allowed
-?Continent!=Europe ► Continent is NOT Europe
-?Continent!=Europe&Continent!=Asia ► Continent is NEITHER Europe NOR Asia
-?Shapes ► Shapes is not NULL
-?Shapes! ► Shapes is NULL
-?c1>=10 ► c1 > 10 (not >= 10)
-?c1>~=10 ► c1 >= 10. The ~ acts like an =
-?c1<=10 ► c1 < 10 (not <= 10)
-?c1<~=10 ► c1 <= 10. The ~ acts like an =
-?c1>=10&c1<=20 ► c1 > 10 AND c1 < 20
-?Name~=United ► Name matches &_format=html
-?Name!~=United ► Name does NOT match United
-?Name~=United&Continent=Asia ► Name matches United AND Continent is Asia
-```
-
 - FormHandler formats
+
 ```
 By default, FormHandler renders data as JSON. Use ?_format= to change that.
 
@@ -262,86 +251,7 @@ JSON: flags?_format=json
 XLSX: flags?_format=xlsx
 Table: flags?_format=table from v1.23 - an interactive table viewer
 ```
-To include the table format, you must include this in your gramex.yaml:
-```
-import:
-  path: $GRAMEXPATH/apps/formhandler/gramex.yaml
-  YAMLURL: $YAMLURL         # Mount this app at the current folder
-```
 
-## Smart alert 
-The alert service sends reports via email.
-First, set up an `email service`. Here is a sample:
-```
-email:
-  gramex-guide-gmail:
-    type: gmail                       # Type of email used is GMail
-    email: gramex.guide@gmail.com     # Generic email ID used to test e-mails
-    password: tlpmupxnhucitpte        # App-specific password created for Gramex guide
-```
-### Alert Example
-```
-Email scheduling uses the same keys as scheduler: `minutes`, `hours`, `dates`, `weekdays`, `months` and `years`.
-alert:
-  alert-schedule:
-    # days: '*'                       # Send email every day
-    # hours: '6, 12'                  # at 6am and 12noon
-    # minutes: 0                      # at the 0th minute, i.e. 6:00am and 12:00pm
-    startup: false
-    # condition: once("Hello World!")
-    to:
-      - user.name@email.com
-    cc: user.name@email.com
-    subject: Scheduled alert
-    body: This email will be scheduled and sent as long as Gramex is running.
-    # html: <p>This content will be shown in <em>HTML</em> on <strong>supported devices</strong>.
-    # markdown: |
-    #   <p>This email has inline images.</p>
-    #   <img src="cid:img1">
-    # markdownfile: $YAMLPATH/content.md
-    # images:
-    #  img1: $YAMLPATH/required_sequence.png
-    # attachments:
-    #  - map_data.xlsx
-```
-- To send an email on `startup`, use startup: instead of `days:`, `hours:`, etc. This sends an email every time Gramex starts.
-- To avoid resentding email, condition: once(..) ensures that an alert campaign is sent out only once. once() returns boolean.
-- `html:` specifies the HTML content to be sent.
-- `markdown:` can be used to specify the HTML content as Markdown instead of html (and overrides it).
-- `markdownfile:` place in markdownfile instead and pass file name
-here `content.md` file to attach in markdown.
-```
-<p>This email has inline images.</p>
-<img src="cid:img1">
-```
+# Next Steps
 
-# Part 3: Security
-## Authentication
-Gramex allows users to log in using various single sign-on methods.
-- Define a Gramex auth handler. This URL renders / redirects to a login page
-- When the user logs in, send the credentials to the auth handler
-- If credentials are valid, store the user details and redirect the user. Else show an error message.
-This configuration creates a `simple auth` page:
-```
-login/simple:
-    pattern: /$YAMLURL/simple           # Map this URL
-    handler: SimpleAuth                 # to the SimpleAuth handler
-    kwargs:
-        credentials:                     # Specify the user IDs and passwords
-            alpha: alpha                 # User: alpha has password: alpha
-            beta: beta                   # Similarly for beta
-        template: $YAMLPATH/login.html   # Optional login template
-```
-## log out
-This configuration creates a `logout page`:
-```
-logout
-    pattern: /$YAMLURL/logout   # Map this URL
-    handler: LogoutHandler      # to the logout handler
-    kwargs:
-        redirect: /$YAMLURL/login/
-```
-
-Similiary you can have other login authentication like `google auth`, `facebook auth`, `twitter auth` etc..
-
-# Start with ML application click [here](https://github.com/kamleshdjango/gramex-ml-workshop/blob/scipy-workshop/ml.md)
+Continue the workshop [here](https://github.com/gramexrecipes/gramex-ml-workshop/blob/master/structure.md)
