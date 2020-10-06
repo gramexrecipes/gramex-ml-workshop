@@ -1,6 +1,13 @@
 Building a ML Classification application with Gramex
 ====================================
 
+# Table of Contents
+1. [Workshop steps](#workshop-steps)
+2. [For organizers](#for-workshop-organizers)
+3. [For participants](#for-workshop-participants)
+
+# Workshop steps
+
 ## Step 1 - Setup and Installation
 
 To install gramex and its dependencies, please see the [installation guide](install.md).
@@ -52,6 +59,7 @@ Please review the instructions on how this workshop content is put together: htt
   - interactions
   - charts
 - How to use Gramex to build ML as a service
+- Use [tutorial](https://github.com/gramexrecipes/gramex-ml-workshop/blob/master/tutorial.md) to introduce Gramex
 
 In the workshop, participants will learn how to create API endpoints for data and ML services.
 
