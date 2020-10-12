@@ -4,9 +4,9 @@ In this tutorial, we will be building an app which exposes classifiers through a
 web application, with Gramex. By the end of this tutorial, we will have covered:
 
 1. How to expose data as a REST API through
-   [formhandler](https://gramener.com/gramex/guide/formhandler)
+   [formhandler](https://gramener.com/gramex/guide/formhandler/)
 2. How to train scikit-learn classifiers on uploaded datasets through
-   [functionhandler](https://gramener.com/gramex/guide/functionhandler)
+   [functionhandler](https://gramener.com/gramex/guide/functionhandler/)
 3. How to visualize certain elements of the trained model through JS and Vega
 
 By the end, the app should look something like:
@@ -38,7 +38,7 @@ Consider a dataset that you'd like for training a classifier. In this case, we'l
 
 We can download this dataset into the "datasets" folder within our project directory, and allow Gramex to
 read it, by creating a
-[`FormHandler`](https://gramener.com/gramex/guide/formhandler). This can be done
+[`FormHandler`](https://gramener.com/gramex/guide/formhandler/). This can be done
 by adding the following lines of code, in your `gramex.yaml`:
 
 ```yaml
@@ -70,7 +70,7 @@ table, add the following lines to `index.html`:
 We will begin with a pre-written HTML file, called [`snippets/base.html`](snippets/base.html).
 In it, we have a navbar (header for the page).
 
-The corresponding `YAML` routing (found in [gramex.yaml](snippets/gramex.yaml)) is as below:
+The corresponding `YAML` routing (found in [`gramex.yaml`](snippets/gramex.yaml)) is as below:
 
 ```yaml
   workshop/snippets/base:
@@ -87,9 +87,9 @@ Your page should now look like below
 
 ### Step 2 - upload.html
 
-In `base.html`, add the content from another file, [`snippets/upload.html`](snippets/upload.html). The latter file contains the code required to add a [`FileHandler`](https://gramener.com/gramex/guide/filehandler), a component that is used to render HTML files.
+In `base.html`, add the content from another file, [`snippets/upload.html`](snippets/upload.html). The latter file contains the code required to add a [`FileHandler`](https://gramener.com/gramex/guide/filehandler/), a component that is used to render HTML files.
 
-The corresponding `YAML` routing (found in [gramex.yaml](snippets/gramex.yaml)) is as below:
+The corresponding `YAML` routing (found in [`gramex.yaml`](snippets/gramex.yaml)) is as below:
 
 ```yaml
   workshop/snippets/upload:
@@ -106,7 +106,7 @@ Your page should now look like below
 
 ### Step 3 - table.html
 
-We rely on a table renderer from [`g1`](https://gramener.com/gramex/guide/g1) - a JS library used for interacttions.
+We rely on a table renderer from [`g1`](https://gramener.com/gramex/guide/g1/) - a JS library used for interacttions.
 
 For it to work, we need to integrate few lines of JS.
 
@@ -123,7 +123,7 @@ For it to work, we need to integrate few lines of JS.
 </script>
 ```
 
-The corresponding `YAML` routing (found in [gramex.yaml](snippets/gramex.yaml)) is as below:
+The corresponding `YAML` routing (found in [`gramex.yaml`](snippets/gramex.yaml)) is as below:
 
 ```yaml
   workshop/snippets/table:
@@ -134,7 +134,7 @@ The corresponding `YAML` routing (found in [gramex.yaml](snippets/gramex.yaml)) 
       template: true
 ```
 
-also note that rendering the table relies on `data` endpoint in [gramex.yaml](snippets/gramex.yaml):
+also note that rendering the table relies on `data` endpoint in [`gramex.yaml`](snippets/gramex.yaml):
 
 ```yaml
   formhandler:
@@ -148,7 +148,7 @@ Your page should now look like below
 
 ![base + upload + table html](snippets/images/table.png)
 
-To know more about g1's formhandler table, visit [the g1 guide](https://gramener.com/gramex/guide/g1/formhandler)
+To know more about g1's formhandler table, visit [the g1 guide](https://gramener.com/gramex/guide/g1/formhandler).
 
 ### Step 4 - training.html
 
@@ -279,4 +279,4 @@ Your page should now look like below
 
 ![final-output](snippets/images/final.png)
 
-If it doesn't, don't worry. Look at the content in `final.html` and replicate it or copy/paste it.
+If it doesn't, don't worry. Look at the content in [`snippets/curated.html`](snippets/curated.html) and replicate it or copy/paste it.
