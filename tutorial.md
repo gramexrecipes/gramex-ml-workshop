@@ -14,7 +14,7 @@ By the end, the app should look something like:
 
 You can also play with a live version of the app [here](https://9018.gramex.gramener.co).
 
-## Initialization & Scaffolding
+## Initialization
 
 To get started, you will need to have [installed Gramex](install.md). Then,
 clone this repository, navigate to it from your terminal, and run the
@@ -50,6 +50,17 @@ url:
       # Path to the file, relative to gramex.yaml
       url: $YAMLPATH/iris.csv
 ```
-Now you can visit [`http://localhost:9988/iris`] to see the data as a JSON
+Now you can visit [`http://localhost:9988/iris`](http://localhost:9988/iris) to see the data as a JSON
 payload.
 
+To expose this dataset in the home page of your application as an interactive
+table, add the following lines to `index.html`:
+
+```html
+<div class="formhandler" data-src="iris"></div>
+<script>
+  $('.formhandler').formhandler()
+</script>
+```
+
+## FunctionHandler
